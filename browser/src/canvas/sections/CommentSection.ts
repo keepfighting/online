@@ -475,13 +475,29 @@ export class Comment extends CanvasSectionObject {
 			this.sectionProperties.authorAvatartdImg.style.borderColor = color;
 		}
 
-		var d = new Date(this.sectionProperties.data.dateTime.replace(/,.*/, 'Z'));
-		var dateOptions: any = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
-		this.sectionProperties.contentDate.innerText = isNaN(d.getTime()) ? this.sectionProperties.data.dateTime: d.toLocaleDateString((<any>String).locale, dateOptions);
+		this.sectionProperties.contentDate.innerText = this.getFormattedDate(this.sectionProperties.data.dateTime).toDateString();
 
 		if (this.sectionProperties.data.trackchange) {
 			this.sectionProperties.captionText.innerText = this.sectionProperties.data.description;
 		}
+	}
+
+	private getFormattedDate(dateString: any): Date {
+		const match = dateString.match(/^(\d{2})\.(\d{2})\.(\d{4}) (\d{2}):(\d{2})$/);
+		
+		if (!match) {
+			return new Date(dateString); // Return original input as a date if format doesn't match
+		}
+	
+		// Extract values properly
+		const day = parseInt(match[1], 10) - 1;// Convert to 0-based index
+		const month = parseInt(match[2], 10) - 1; // Convert to 0-based index
+		const year = parseInt(match[3], 10);
+		const hours = parseInt(match[4], 10);
+		const minutes = parseInt(match[5], 10);
+		const date = new Date(Date.UTC(year, month, day, hours, minutes));
+	
+		return date;
 	}
 
 	private updateLayout (): void {
