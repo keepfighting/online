@@ -90,6 +90,7 @@ browser/npm-shrinkwrap.json
 browser/jsconfig.json
 browser/admin/jsconfig.json
 browser/dist
+browser/dist*
 browser/compilets
 browser/typescript_js
 browser/src/layer/tile/CanvasTileWorker.js
