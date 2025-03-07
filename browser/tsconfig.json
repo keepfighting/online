@@ -3,12 +3,13 @@
     "compilerOptions": {
       "target": "es5",
       "module": "none",
-      "lib": ["dom", "es2016"],
+      "lib": ["ES5", "DOM"],
+      "skipLibCheck": true,
       "sourceMap": false,
       "incremental": true,
       "moduleResolution": "node",
       "noImplicitAny": true,
-      "removeComments": false,
+      "removeComments": true,
       "preserveConstEnums": false,
       "downlevelIteration": true,
       "watch": false
@@ -23,7 +24,7 @@
       "docs",
       "test",
       "typescript_js",
-      "dist",
+      "dist1",
       "release",
       "debug",
       "welcome"
