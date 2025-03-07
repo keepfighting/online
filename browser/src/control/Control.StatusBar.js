@@ -281,7 +281,7 @@ class StatusBar extends JSDialog.Toolbar {
 		if (this.parentContainer.firstChild)
 			return;
 
-		this.parentContainer.replaceChildren();
+		this.parentContainer.innerHTML = ''; // replaceChildren();
 		this.builder.build(this.parentContainer, this.getToolItems());
 
 		this.onLanguagesUpdated();

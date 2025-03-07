@@ -90,7 +90,7 @@ class PresentationBar {
 			}
 		];
 
-		this.parentContainer.replaceChildren();
+		this.parentContainer.innerHTML = ''; // replaceChildren();
 		this.builder.build(this.parentContainer, data);
 
 		if (this.map.getDocType() === 'drawing') {

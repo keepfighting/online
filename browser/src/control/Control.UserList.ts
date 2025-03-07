@@ -323,27 +323,27 @@ class UserList extends L.Control {
 
 		userListElement.setAttribute('accesskey', 'UP');
 
-		userListElement.replaceChildren(
-			...avatarUsers.map(([viewId, user], index) => {
-				const img = this.createAvatar(
-					user.cachedHeaderAvatar,
-					viewId,
-					user.username,
-					user.extraInfo,
-					user.color,
-					displayCount - index,
-				);
-				user.cachedHeaderAvatar = img;
+		userListElement.innerHTML = ''; // replaceChildren(
+		// 	...avatarUsers.map(([viewId, user], index) => {
+		// 		const img = this.createAvatar(
+		// 			user.cachedHeaderAvatar,
+		// 			viewId,
+		// 			user.username,
+		// 			user.extraInfo,
+		// 			user.color,
+		// 			displayCount - index,
+		// 		);
+		// 		user.cachedHeaderAvatar = img;
 
-				if (followed !== undefined && followed[0] === viewId) {
-					img.classList.add('following');
-				} else {
-					img.classList.remove('following');
-				}
+		// 		if (followed !== undefined && followed[0] === viewId) {
+		// 			img.classList.add('following');
+		// 		} else {
+		// 			img.classList.remove('following');
+		// 		}
 
-				return img;
-			}),
-		);
+		// 		return img;
+		// 	}),
+		// );
 
 		userListElementBackground.style.display = 'block';
 	}
@@ -551,7 +551,7 @@ class UserList extends L.Control {
 		followEditorCheckboxLabel.innerText = _('Always follow the editor');
 		followEditorCheckboxLabel.setAttribute('for', 'follow-editor-checkbox');
 
-		popoverElement.replaceChildren(...userElements, followEditorWrapper);
+		popoverElement.innerHTML = ''; // replaceChildren(...userElements, followEditorWrapper);
 	}
 
 	renderFollowingChip() {

@@ -192,7 +192,7 @@ function htmlContent(
 	data: HtmlContentJson,
 	builder: any,
 ) {
-	parentContainer.replaceChildren();
+	parentContainer.innerHTML = ''; // replaceChildren();
 
 	const elements = getElementsFromId(data.htmlId, data.closeCallback, data);
 

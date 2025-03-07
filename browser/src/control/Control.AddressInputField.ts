@@ -99,7 +99,7 @@ class AddressInputField {
 				selectedCount: 0,
 			},
 		];
-		this.parentContainer.replaceChildren();
+		this.parentContainer.innerHTML = ''; // replaceChildren();
 		this.builder.build(this.parentContainer, data);
 	}
 

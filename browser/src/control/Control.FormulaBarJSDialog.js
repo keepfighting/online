@@ -130,7 +130,7 @@ class FormulaBar {
 				}];
 		}
 
-		this.parentContainer.replaceChildren();
+		this.parentContainer.innerHTML = ''; // replaceChildren();
 		this.builder.build(this.parentContainer, data);
 	}
 

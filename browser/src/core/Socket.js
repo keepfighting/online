@@ -731,7 +731,7 @@ app.definitions.Socket = L.Class.extend({
 				anchor.textContent = h;
 
 				const versionContainer = document.getElementById('coolwsd-version');
-				versionContainer.replaceChildren();
+				versionContainer.innerHTML = ''; // replaceChildren();
 
 				versionContainer.appendChild(document.createTextNode(this.WSDServer.Version));
 
@@ -762,7 +762,7 @@ app.definitions.Socket = L.Class.extend({
 			const lokitVersionObj = JSON.parse(textMsg.substring(textMsg.indexOf('{')));
 
 			const versionContainer = document.getElementById('lokit-version');
-			versionContainer.replaceChildren();
+			versionContainer.innerHTML = ''; // replaceChildren();
 			versionContainer.appendChild(document.createTextNode(lokitVersionObj.ProductName + '\xA0' + lokitVersionObj.ProductVersion + lokitVersionObj.ProductExtension));
 
 			h = lokitVersionObj.BuildId.substring(0, 10);
