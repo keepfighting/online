@@ -4,7 +4,7 @@
 
 # FROM ubuntu:24.04
 # FROM 10.0.35.16:5000/ubuntu:22.04
-FROM pushsoft/code-base
+FROM pushsoft/codebase
 
 # refresh repos otherwise installations later may fail
 # install LibreOffice run-time dependencies
@@ -21,12 +21,13 @@ FROM pushsoft/code-base
 #                fonts-noto-cjk ca-certificates
 
 # copy freshly built LOKit and Collabora Online
-COPY ./instdir /
+# COPY ./instdir /
+COPY ./instdir/opt /opt
 # COPY ./builddir/poco/lib /usr/local/lib/
 # COPY ./builddir/poco/lib /usr/lib/
 # ENV LD_LIBRARY_PATH=/usr/local/lib
 # # copy the shell script which can start Collabora Online (coolwsd)
-COPY ./start-collabora-online.sh /
+# COPY ./start-collabora-online.sh /
 
 # set up Collabora Online (normally done by postinstall script of package)
 # Fix permissions

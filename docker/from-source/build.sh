@@ -63,6 +63,8 @@ mkdir -p "$BUILDDIR"
 cd "$BUILDDIR"
 
 # rm -rf "$INSTDIR" || true
+rm -rf "$INSTDIR/etc" || true
+rm -rf "$INSTDIR/usr" || true
 # mkdir -p "$INSTDIR"
 
 ##### build static poco #####
@@ -121,13 +123,13 @@ cd "$BUILDDIR"
 
 # ##### coolwsd & cool #####
 
-# # build
-# ( cd ~/collabora-online && ./autogen.sh ) || exit 1
-# ( cd ~/collabora-online && ./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var --enable-silent-rules --disable-tests --with-lokit-path="$BUILDDIR"/core/include --with-lo-path=/opt/lokit --with-poco-includes=$BUILDDIR/poco/include --with-poco-libs=$BUILDDIR/poco/lib $ONLINE_EXTRA_BUILD_OPTIONS) || exit 1
-# ( cd ~/collabora-online && make -j $(nproc)) || exit 1
+# build
+( cd ~/online && ./autogen.sh ) || exit 1
+( cd ~/online && ./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var --enable-silent-rules --disable-tests --with-lokit-path="$BUILDDIR"/core/include --with-lo-path=/opt/lokit --with-poco-includes=$BUILDDIR/poco/include --with-poco-libs=$BUILDDIR/poco/lib $ONLINE_EXTRA_BUILD_OPTIONS) || exit 1
+( cd ~/online && make -j $(nproc)) || exit 1
 
-# # copy stuff
-# ( cd ~/collabora-online && DESTDIR="$INSTDIR" make install ) || exit 1
+# # # copy stuff
+( cd ~/online && DESTDIR="$INSTDIR" make install ) || exit 1
 
 ##### online branding #####
 # if test -d online-branding ; then
@@ -144,8 +146,9 @@ if [ -z "$NO_DOCKER_IMAGE" ]; then
   echo "Building Docker Image...'$SRCDIR'" && \
   cp ../from-packages/scripts/start-collabora-online.sh .
   # docker build --no-cache -t $DOCKER_HUB_REPO:$DOCKER_HUB_TAG -f $HOST_OS . || exit 1
-  docker build --no-cache -t pushsoft/codecopy -f Ubuntu-Code-Copy .  || exit 1
-  docker build --no-cache -t pushsoft/code -f Ubuntu-Code  . || exit 1
+  # sudo docker build --no-cache -t pushsoft/codebase1 -f Ubuntu-Base .  || exit 1
+  # sudo docker build --no-cache -t pushsoft/codecore -f Ubuntu-Code-Core .  || exit 1
+  sudo docker build --no-cache -t pushsoft/code -f Ubuntu-Code  . || exit 1
 else
   echo "Skipping docker image build"
 fi;
