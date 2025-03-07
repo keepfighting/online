@@ -345,7 +345,9 @@ app.impress.isSlideSelected = function (index) {
 	} else return false;
 };
 
-app._flushLayoutingQueue = function () {
+let _layoutTaskFlush = null;
+
+let _flushLayoutingQueue = function () {
 	if (app.layoutTasks.length) {
 		window.requestAnimationFrame(() => {
 			const task = app.layoutTasks.shift();
@@ -354,6 +356,7 @@ app._flushLayoutingQueue = function () {
 				app.scheduleLayouting();
 			}
 		});
+		_layoutTaskFlush = null;
 	}
 };
 
@@ -362,5 +365,7 @@ app.appendLayoutingTask = function (task) {
 };
 
 app.scheduleLayouting = function () {
-	setTimeout(app._flushLayoutingQueue, 10);
+	if (_layoutTaskFlush) clearTimeout(_layoutTaskFlush);
+
+	_layoutTaskFlush = setTimeout(_flushLayoutingQueue, 10);
 };
