@@ -250,7 +250,7 @@ function updatePalette(
 	paletteContainer.style.gridTemplateColumns =
 		'repeat(' + palette[0].length + ', auto)';
 
-	paletteContainer.innerHTML = ''; // replaceChildren();
+	paletteContainer.replaceChildren();
 	for (let i = 0; i < palette.length - 2; i++) {
 		for (let j = 0; j < palette[i].length; j++) {
 			const themeData = detailedPalette[i][j].Data
@@ -269,7 +269,7 @@ function updatePalette(
 		}
 	}
 
-	customContainer.innerHTML = ''; // replaceChildren();
+	customContainer.replaceChildren();
 
 	const customInput = L.DomUtil.create('input', '', customContainer);
 	customInput.placeholder = '#FFF000';
@@ -314,7 +314,7 @@ function updatePalette(
 		);
 	}
 
-	recentContainer.innerHTML = ''; // replaceChildren();
+	recentContainer.replaceChildren();
 	const recentColors = palette[palette.length - 1];
 	for (let i = 0; i < recentColors.length && i < 8; i++) {
 		createColor(

@@ -2397,7 +2397,7 @@ L.Control.Menubar = L.Control.extend({
 			} else if (menu[i].uno !== undefined) {
 				aItem.innerHTML = _UNO(menu[i].uno, docType);
 			} else {
-				aItem.innerHTML = ''; // replaceChildren();
+				aItem.replaceChildren();
 			}
 
 			if (menu[i].type === 'menu') {
@@ -2676,7 +2676,7 @@ L.Control.Menubar = L.Control.extend({
 			mainSpan.appendChild(this.lastModIndicator);
 
 			// Replace menu button body with new content
-			lastModButton.firstChild.innerHTML = ''; // replaceChildren();
+			lastModButton.firstChild.replaceChildren();
 			lastModButton.firstChild.appendChild(mainSpan);
 
 			if (L.Params.revHistoryEnabled) {

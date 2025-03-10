@@ -651,7 +651,7 @@ L.Clipboard = L.Class.extend({
 
 	_resetDiv: function() {
 		// cleanup the content:
-		this._dummyDiv.innerHTML = ''; // replaceChildren();
+		this._dummyDiv.replaceChildren();
 
 		let bElement = document.createElement('b');
 		bElement.style.fontWeight = 'normal';
@@ -1327,7 +1327,7 @@ L.Clipboard = L.Class.extend({
 	_warnLargeCopyPasteAlreadyStarted: function () {
 		this._map.uiManager.showInfoModal('large copy paste started warning');
 		const container = document.getElementById('large copy paste started warning');
-		container.innerHTML = ''; // replaceChildren();
+		container.replaceChildren();
 		const p = document.createElement('p');
 		p.textContent = _('A download due to a large copy/paste operation has already started. Please, wait for the current download or cancel it before starting a new one');
 		container.appendChild(p);

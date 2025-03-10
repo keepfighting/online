@@ -177,7 +177,7 @@ L.FormFieldButton = L.Layer.extend({
 	},
 
 	_clearButton: function() {
-		this.getPane('formfieldPane').innerHTML = ''; // replaceChildren();
+		this.getPane('formfieldPane').replaceChildren();
 	}
 
 });
