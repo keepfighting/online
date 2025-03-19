@@ -391,12 +391,12 @@ body {
 
 /* Hide hamburger except on mobile phones */
 #toolbar-hamburger {
-	width: 0;
+	width: 0px !important;
 }
 
 /* Hide back btn except on mobile phones */
 #toolbar-mobile-back {
-	width: 0;
+	width: 0px !important;
 }
 
 #mobile-edit-button {

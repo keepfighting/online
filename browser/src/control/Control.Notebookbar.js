@@ -47,7 +47,11 @@ L.Control.Notebookbar = L.Control.extend({
 			toolbar.outerHTML = '';
 
 		// create toolbar from template
-		$('#toolbar-logo').after(this.map.toolbarUpTemplate.cloneNode(true));
+		// if (this.map.isReadOnlyMode())
+		if(app.getPermission() === 'readonly')
+			$('#toolbar-hamburger').before(this.map.toolbarUpTemplate.cloneNode(true));
+		else
+			$('#toolbar-logo').after(this.map.toolbarUpTemplate.cloneNode(true));
 		this.parentContainer = L.DomUtil.get('toolbar-up');
 
 		this.loadTab(this.getFullJSON(this.HOME_TAB_ID));

@@ -3449,11 +3449,13 @@ L.CanvasTileLayer = L.Layer.extend({
 		// But of course, zoom to fit the first time.
 		if (this._firstFitDone)
 			zoom = this._map._zoom;
-		this._firstFitDone = true;
+		else {
+			this._firstFitDone = true;
 
-		if (zoom > 1)
-			zoom = Math.floor(zoom);
-
+			if (zoom > 1)
+				zoom = Math.floor(zoom);
+			this._map._initZoom = zoom;
+		}
 		this._map.setZoom(zoom, {animate: false});
 	},
 

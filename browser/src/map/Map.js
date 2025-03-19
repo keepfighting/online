@@ -63,7 +63,7 @@ L.Map = L.Evented.extend({
 
 	initialize: function (id, options) { // (HTMLElement or String, Object)
 		options = L.setOptions(this, options);
-
+		this._initZoom = 10;
 		if (this.options.documentContainer) {
 			// have it as DOM object
 			this.options.documentContainer = L.DomUtil.get(this.options.documentContainer);
