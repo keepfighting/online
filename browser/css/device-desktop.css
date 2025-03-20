@@ -42,6 +42,10 @@ button:not(.ui-corner-all):not(.button-primary):not(.unobutton):not(.form-field-
 	display: flex;
 }
 
+#toolbar-wrapper.readonly > #formulabar-row {
+	display: none;
+}
+
 #toolbar-wrapper.readonly div.ui-toolbar div.ui-scrollable-content {
 	display:none;
 }

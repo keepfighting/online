@@ -140,7 +140,7 @@ L.Control.Menubar = L.Control.extend({
 					{name: _('Reset zoom'), id: 'zoomreset', type: 'action'},
 				]).concat([
 					{type: 'separator'},
-					{name: _('Toggle UI Mode'), id: 'toggleuimode', type: 'action'},
+					{name: _('Toggle UI Mode'), id: 'toggleuimode', hidden: true, type: 'action'},
 					{name: _('Show Ruler'), id: 'showruler', type: 'action'},
 					{name: _('Show Status Bar'), id: 'showstatusbar', type: 'action'},
 					{name: _('Hide Menu Bar'), id: 'togglemenubar', type: 'action'},
@@ -380,7 +380,7 @@ L.Control.Menubar = L.Control.extend({
 				{type: 'separator'},
 				{name: _UNO('.uno:RunMacro'), id: 'runmacro', uno: '.uno:RunMacro'}
 			]},
-			{name: _UNO('.uno:HelpMenu', 'text'), id: 'help', type: 'menu', menu: [
+			{name: _UNO('.uno:HelpMenu', 'text'), id: 'help', hidden: true, type: 'menu', menu: [
 				{name: _('Forum'), id: 'forum', type: 'action'},
 				{name: _('Online Help'), id: 'online-help', type: 'action', iosapp: false},
 				{name: L.Control.MenubarShortcuts.addShortcut(_('Keyboard shortcuts'), L.Control.MenubarShortcuts.shortcuts.KEYBOARD_SHORTCUTS), id: 'keyboard-shortcuts', type: 'action', iosapp: false},
@@ -457,7 +457,7 @@ L.Control.Menubar = L.Control.extend({
 				   {uno: '.uno:GridVisible', name: _UNO('.uno:GridVisible')},
 				   {uno: '.uno:GridUse', name: _UNO('.uno:GridUse')},
 				   {type: 'separator'},
-				   {name: _('Toggle UI Mode'), id: 'toggleuimode', type: 'action'},
+				   {name: _('Toggle UI Mode'), id: 'toggleuimode', hidden: true, type: 'action'},
 				   {name: _('Show Ruler'), id: 'showruler', type: 'action'},
 				   {name: _('Show Status Bar'), id: 'showstatusbar', type: 'action'},
 				   {name: _('Notes View'), id: 'notesmode', type: 'action'},
@@ -557,7 +557,7 @@ L.Control.Menubar = L.Control.extend({
 				{name: _UNO('.uno:RunMacro'), id: 'runmacro', uno: '.uno:RunMacro'}
 
 			]},
-			{name: _UNO('.uno:HelpMenu', 'presentation'), id: 'help', type: 'menu', menu: [
+			{name: _UNO('.uno:HelpMenu', 'presentation'), id: 'help', hidden: true, type: 'menu', menu: [
 				{name: _('Online Help'), id: 'online-help', type: 'action', iosapp: false},
 				{name: L.Control.MenubarShortcuts.addShortcut(_('Keyboard shortcuts'), L.Control.MenubarShortcuts.shortcuts.KEYBOARD_SHORTCUTS), id: 'keyboard-shortcuts', type: 'action', iosapp: false},
 				{name: _('Report an issue'), id: 'report-an-issue', type: 'action', iosapp: false},
@@ -617,7 +617,7 @@ L.Control.Menubar = L.Control.extend({
 					{uno: '.uno:GridVisible', name: _UNO('.uno:GridVisible')},
 					{uno: '.uno:GridUse', name: _UNO('.uno:GridUse')},
 					{type: 'separator'},
-					{name: _('Toggle UI Mode'), id: 'toggleuimode', type: 'action'},
+					{name: _('Toggle UI Mode'), id: 'toggleuimode', hidden: true, type: 'action'},
 					{name: _('Dark Mode'), id: 'toggledarktheme', type: 'action'},
 					{name: _('Invert Background'), id: 'invertbackground', type: 'action'},
 					{uno: '.uno:SidebarDeck.PropertyDeck', name: _UNO('.uno:Sidebar')},
@@ -694,7 +694,7 @@ L.Control.Menubar = L.Control.extend({
 				{name: _UNO('.uno:LanguageMenu'), type: 'menu', menu: [
 					{name: _('None (Do not check spelling)'), id: 'nonelanguage', uno: '.uno:LanguageStatus?Language:string=Default_LANGUAGE_NONE'}]}
 			]},
-			{name: _UNO('.uno:HelpMenu', 'presentation'), id: 'help', type: 'menu', menu: [
+			{name: _UNO('.uno:HelpMenu', 'presentation'), id: 'help', hidden: true, type: 'menu', menu: [
 				{name: _('Online Help'), id: 'online-help', type: 'action', iosapp: false},
 				{name: L.Control.MenubarShortcuts.addShortcut(_('Keyboard shortcuts'), L.Control.MenubarShortcuts.shortcuts.KEYBOARD_SHORTCUTS), id: 'keyboard-shortcuts', type: 'action', iosapp: false},
 				{name: _('Report an issue'), id: 'report-an-issue', type: 'action', iosapp: false},
@@ -760,7 +760,7 @@ L.Control.Menubar = L.Control.extend({
 				   {name: _('Reset zoom'), id: 'zoomreset', type: 'action'},
 				]).concat([
 				   {type: 'separator'},
-				   {name: _('Toggle UI Mode'), id: 'toggleuimode', type: 'action'},
+				   {name: _('Toggle UI Mode'), id: 'toggleuimode', hidden: true, type: 'action'},
 				   {name: _('Show Status Bar'), id: 'showstatusbar', type: 'action'},
 				   {name: _('Hide Menu Bar'), id: 'togglemenubar', type: 'action'},
 				   {name: _('Dark Mode'), id: 'toggledarktheme', type: 'action'},
@@ -984,7 +984,7 @@ L.Control.Menubar = L.Control.extend({
 				{type: 'separator'},
 				{name: _UNO('.uno:RunMacro'), id: 'runmacro', uno: '.uno:RunMacro'}
 			]},
-			{name: _UNO('.uno:HelpMenu', 'spreadsheet'), id: 'help', type: 'menu', menu: [
+			{name: _UNO('.uno:HelpMenu', 'spreadsheet'), id: 'help', hidden: true, type: 'menu', menu: [
 				{name: _('Online Help'), id: 'online-help', type: 'action', iosapp: false},
 				{name: L.Control.MenubarShortcuts.addShortcut(_('Keyboard shortcuts'), L.Control.MenubarShortcuts.shortcuts.KEYBOARD_SHORTCUTS), id: 'keyboard-shortcuts', type: 'action', iosapp: false},
 				{name: _('Report an issue'), id: 'report-an-issue', type: 'action', iosapp: false},
@@ -1587,7 +1587,7 @@ L.Control.Menubar = L.Control.extend({
 
 		document.getElementById('main-menu').setAttribute('role', 'menubar');
 		this._addTabIndexPropsToMainMenu();
-		this._createFileIcon();
+		this._createFileIcon(docType);
 	},
 
 	// Function to check if an event is already bound
@@ -2210,11 +2210,21 @@ L.Control.Menubar = L.Control.extend({
 		}
 	},
 
-	_createFileIcon: function() {
+	_createFileIcon: function(docType) {
 		var liItem = L.DomUtil.create('li', '');
 		liItem.id = 'document-header';
 		liItem.setAttribute('role', 'menuitem');
-		var aItem = L.DomUtil.create('div', 'document-logo', liItem);
+		var iconClass = 'document-logo';
+		if (docType === 'text') {
+			iconClass += ' writer-icon-img';
+		} else if (docType === 'spreadsheet') {
+			iconClass += ' calc-icon-img';
+		} else if (docType === 'presentation') {
+			iconClass += ' impress-icon-img';
+		} else if (docType === 'drawing') {
+			iconClass += ' draw-icon-img';
+		}
+		var aItem = L.DomUtil.create('div', iconClass, liItem);
 		$(aItem).data('id', 'document-logo');
 		$(aItem).data('type', 'action');
 		aItem.setAttribute('role', 'img');

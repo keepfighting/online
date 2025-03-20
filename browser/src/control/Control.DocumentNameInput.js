@@ -110,7 +110,7 @@ L.Control.DocumentNameInput = L.Control.extend({
 				.replace('/wopi/files', '');
 
 			var basePath = fileNameFullPath.replace(this.map['wopi'].BaseFileName , '').replace(/\/$/, '');
-			var title = this.map['wopi'].BaseFileName + '\n' + _('Path') + ': ' + basePath;
+			var title = this.map['wopi'].BaseFileName;// + '\n' + _('Path') + ': ' + basePath;
 
 			el.prop('title', title);
 		} catch (e) {
