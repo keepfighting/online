@@ -2,6 +2,7 @@
 
 /* Hide text droplets if accurate pointing device such as a mouse is detected */
 @media (pointer: fine) {
+
 	.text-selection-handle-start,
 	.text-selection-handle-end {
 		display: none;
@@ -13,6 +14,7 @@
 	content: ' (';
 	white-space: pre;
 }
+
 #coolwsd-version span:after,
 #lokit-version > span:after {
 	content: ')';
@@ -36,9 +38,9 @@ button:not(.ui-corner-all):not(.button-primary):not(.unobutton):not(.form-field-
 }
 
 #toolbar-wrapper.readonly {
-    border-top: 0;
-    z-index: auto !important;
-    flex-direction: column;
+	border-top: 0;
+	z-index: auto !important;
+	flex-direction: column;
 	display: flex;
 }
 
@@ -47,11 +49,11 @@ button:not(.ui-corner-all):not(.button-primary):not(.unobutton):not(.form-field-
 }
 
 #toolbar-wrapper.readonly div.ui-toolbar div.ui-scrollable-content {
-	display:none;
+	display: none;
 }
 
 .toolbar-row {
-    display: flex;
-    flex-direction: row;
-    height: 38px !important
+	display: flex;
+	flex-direction: row;
+	height: 38px !important
 }
