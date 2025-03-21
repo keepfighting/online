@@ -139,6 +139,6 @@
 	display: none;
 }
 
-#toolbar-wrapper.tablet > #toolbar-row {
+#toolbar-wrapper.readonly > #toolbar-row {
 	display: flex;
 }

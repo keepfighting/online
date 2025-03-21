@@ -65,8 +65,8 @@ export class ScrollSection extends CanvasSectionObject {
 
 		this.sectionProperties.previousDragDistance = null;
 
-		this.sectionProperties.usableThickness = 20 * app.roundedDpiScale;
-		this.sectionProperties.scrollBarThickness = 6 * app.roundedDpiScale;
+		this.sectionProperties.usableThickness = 40 * app.roundedDpiScale;
+		this.sectionProperties.scrollBarThickness = 12 * app.roundedDpiScale;
 		this.sectionProperties.edgeOffset = 0;
 
 		this.sectionProperties.drawScrollBarRailway = true;
@@ -74,8 +74,8 @@ export class ScrollSection extends CanvasSectionObject {
 		this.sectionProperties.scrollBarRailwayAlpha = this.map._docLayer._docType === 'spreadsheet' ? 1.0 : 0.5;
 		this.sectionProperties.scrollBarRailwayColor = '#EFEFEF';
 
-		this.sectionProperties.drawVerticalScrollBar = ((<any>window).mode.isDesktop() ? true: false);
-		this.sectionProperties.drawHorizontalScrollBar = ((<any>window).mode.isDesktop() ? true: false);
+		this.sectionProperties.drawVerticalScrollBar = true; // ((<any>window).mode.isDesktop() ? true: false);
+		this.sectionProperties.drawHorizontalScrollBar = true; // ((<any>window).mode.isDesktop() ? true: false);
 
 		this.sectionProperties.clickScrollVertical = false; // true when user presses on the scroll bar drawing.
 		this.sectionProperties.clickScrollHorizontal = false;
@@ -188,7 +188,7 @@ export class ScrollSection extends CanvasSectionObject {
 				if (L.Map.THIS.mouse
 				&& L.Map.THIS.mouse._mouseDown
 				&& this.containerObject.targetBoundSectionListContains(L.CSections.Tiles.name)
-				&& (<any>window).mode.isDesktop()
+				// && (<any>window).mode.isDesktop()
 				&& this.containerObject.isDraggingSomething()
 				&& L.Map.THIS._docLayer._docType === 'spreadsheet') {
 					var temp = [e.pos.x, e.pos.y];
@@ -255,7 +255,7 @@ export class ScrollSection extends CanvasSectionObject {
 		if (diff >= 0) {
 			this.sectionProperties.yMin = 0;
 			this.sectionProperties.yMax = diff;
-			if ((<any>window).mode.isDesktop())
+			// if ((<any>window).mode.isDesktop())
 				this.sectionProperties.drawVerticalScrollBar = true;
 		}
 		else {
@@ -263,7 +263,7 @@ export class ScrollSection extends CanvasSectionObject {
 			this.sectionProperties.yMin = diff;
 			this.sectionProperties.yMax = diff;
 			if (app.view.size.pixels[1] >  0) {
-				if (this.map._docLayer._docType !== 'spreadsheet' || !(<any>window).mode.isDesktop())
+				if (this.map._docLayer._docType !== 'spreadsheet') // || !(<any>window).mode.isDesktop())
 					this.sectionProperties.drawVerticalScrollBar = false;
 			}
 		}
@@ -321,7 +321,7 @@ export class ScrollSection extends CanvasSectionObject {
 		if (diff >= 0) {
 			this.sectionProperties.xMin = 0;
 			this.sectionProperties.xMax = diff;
-			if ((<any>window).mode.isDesktop())
+			// if ((<any>window).mode.isDesktop())
 				this.sectionProperties.drawHorizontalScrollBar = true;
 		}
 		else {
@@ -329,7 +329,7 @@ export class ScrollSection extends CanvasSectionObject {
 			this.sectionProperties.xMin = diff;
 			this.sectionProperties.xMax = diff;
 			if (app.view.size.pixels[0] >  0) {
-				if (this.map._docLayer._docType !== 'spreadsheet' || !(<any>window).mode.isDesktop())
+				if (this.map._docLayer._docType !== 'spreadsheet') // || !(<any>window).mode.isDesktop())
 					this.sectionProperties.drawHorizontalScrollBar = false;
 			}
 		}
@@ -626,10 +626,10 @@ export class ScrollSection extends CanvasSectionObject {
 
 			this.decreaseScrollBarThickness();
 
-			if (!(<any>window).mode.isDesktop()) { // On desktop, we don't want to hide the vertical scroll bar.
-				this.sectionProperties.drawVerticalScrollBar = false;
-				this.fadeOutVerticalScrollBar();
-			}
+			// if (!(<any>window).mode.isDesktop()) { // On desktop, we don't want to hide the vertical scroll bar.
+			// 	this.sectionProperties.drawVerticalScrollBar = false;
+			// 	this.fadeOutVerticalScrollBar();
+			// }
 
 			// just in case if we have blinking cursor visible
 			// we need to change cursor from default style
@@ -666,10 +666,10 @@ export class ScrollSection extends CanvasSectionObject {
 
 			this.decreaseScrollBarThickness();
 
-			if (!(<any>window).mode.isDesktop()) {
-				this.sectionProperties.drawHorizontalScrollBar = false;
-				this.fadeOutHorizontalScrollBar();
-			}
+			// if (!(<any>window).mode.isDesktop()) {
+			// 	this.sectionProperties.drawHorizontalScrollBar = false;
+			// 	this.fadeOutHorizontalScrollBar();
+			// }
 
 			// just in case if we have blinking cursor visible
 			// we need to change cursor from default style
@@ -711,24 +711,26 @@ export class ScrollSection extends CanvasSectionObject {
 					this.hideVerticalScrollBar();
 				}
 			}
-			else {
-				this.hideVerticalScrollBar();
-			}
+			// else {
+			// 	this.hideVerticalScrollBar();
+			// }
 		}
 
 		if (this.documentTopLeft[0] >= 0) {
-			if (point[1] >= this.size[1] - this.sectionProperties.usableThickness) {
-				if ((!mirrorX && point[0] <= this.size[0] - this.sectionProperties.horizontalScrollRightOffset && point[0] >= this.sectionProperties.xOffset)
-					|| (mirrorX && point[0] >= this.sectionProperties.horizontalScrollRightOffset && point[0] >= this.sectionProperties.xOffset)) {
-					this.showHorizontalScrollBar();
-				}
-				else {
-					this.hideHorizontalScrollBar();
-				}
-			}
-			else {
-				this.hideHorizontalScrollBar();
-			}
+			this.calculateXMinMax();
+			this.showHorizontalScrollBar();
+			// if (point[1] >= this.size[1] - this.sectionProperties.usableThickness) {
+			// 	if ((!mirrorX && point[0] <= this.size[0] - this.sectionProperties.horizontalScrollRightOffset && point[0] >= this.sectionProperties.xOffset)
+			// 		|| (mirrorX && point[0] >= this.sectionProperties.horizontalScrollRightOffset && point[0] >= this.sectionProperties.xOffset)) {
+			// 		this.showHorizontalScrollBar();
+			// 	}
+			// 	else {
+			// 		this.hideHorizontalScrollBar();
+			// 	}
+			// }
+			// else {
+			// 	this.hideHorizontalScrollBar();
+			// }
 		}
 	}
 
@@ -916,8 +918,8 @@ export class ScrollSection extends CanvasSectionObject {
 	*/
 	private quickScrollVertical (point: Array<number>, originalSign?: number): void {
 		// Desktop only for now.
-		if (!(<any>window).mode.isDesktop())
-			return;
+		// if (!(<any>window).mode.isDesktop())
+		// 	return;
 
 		L.DomUtil.addClass(document.documentElement, 'prevent-select');
 		var props = this.getVerticalScrollProperties();
@@ -949,8 +951,8 @@ export class ScrollSection extends CanvasSectionObject {
 	*/
 	private quickScrollHorizontal (point: Array<number>, originalSign?: number): void {
 		// Desktop only for now.
-		if (!(<any>window).mode.isDesktop())
-			return;
+		// if (!(<any>window).mode.isDesktop())
+		// 	return;
 
 		L.DomUtil.addClass(document.documentElement, 'prevent-select');
 		var props = this.getHorizontalScrollProperties();
@@ -1070,7 +1072,7 @@ export class ScrollSection extends CanvasSectionObject {
 		// We will keep this until we remove leaflet.
 		else if (L.Map.THIS.mouse && L.Map.THIS.mouse._mouseDown
 			&& this.containerObject.targetBoundSectionListContains(L.CSections.Tiles.name)
-			&& (<any>window).mode.isDesktop()
+			// && (<any>window).mode.isDesktop()
 			&& this.containerObject.isDraggingSomething()
 			&& L.Map.THIS._docLayer._docType === 'spreadsheet') {
 

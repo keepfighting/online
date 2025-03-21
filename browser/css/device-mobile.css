@@ -11,14 +11,14 @@ html[dir='rtl'] .sub-menu-arrow {
 	transform: rotate(0deg);
 	background-position: right;
 }
-
-/* Related to cool.css */
+/* Align items vertically */
+/* Related to cool.css 
 #toolbar-hamburger {
 	width: 36px !important;
 	position: relative;
 	z-index: 1002;
-	align-self: center; /* Align items vertically */
-}
+	align-self: center; 
+}*/
 
 .logo {
 	background-size: 100px;
@@ -33,12 +33,12 @@ html[dir='rtl'] .sub-menu-arrow {
 	display: none !important;
 }
 
-/* Related to back button */
+/* Related to back button 
 #toolbar-mobile-back {
 	width: 42px !important;
 	position: relative;
 	z-index: 1003;
-}
+}*/
 .editmode-off {
 	background: url('images/lc_closedocmobile.svg') no-repeat center !important;
 }
