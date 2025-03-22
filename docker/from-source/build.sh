@@ -149,10 +149,11 @@ if [ -z "$NO_DOCKER_IMAGE" ]; then
   # sudo docker build --no-cache -t pushsoft/codebase -f Ubuntu-Base .  || exit 1
   # sudo docker build --no-cache -t pushsoft/codecore -f Ubuntu-Code-Core .  || exit 1
   sudo docker build --no-cache -t pushsoft/code -f Ubuntu-Code  . || exit 1
-  # sudo docker images --filter "dangling=true" || exit 1
-  # sudo docker image prune -f || exit 1
-  sudo docker tag pushsoft/code 10.0.35.16:5000/doc:250319 || exit 1
-  sudo docker tag 10.0.35.16:5000/doc:250319 10.0.35.16:5000/doc:latest || exit 1
+  sudo docker images --filter "dangling=true" || exit 1
+  sudo docker image prune -f || exit 1
+  sudo docker tag pushsoft/code 10.0.35.16:5000/doc:250322 || exit 1
+  sudo docker tag 10.0.35.16:5000/doc:250322 10.0.35.16:5000/doc:latest || exit 1
+  sudo docker push 10.0.35.16:5000/doc:250322 || exit 1
   sudo docker push 10.0.35.16:5000/doc || exit 1
   # 开启运行测试容器
   sudo docker stop pushdoc && sudo docker rm pushdoc || exit 1
