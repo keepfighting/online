@@ -65,12 +65,12 @@ export class ScrollSection extends CanvasSectionObject {
 
 		this.sectionProperties.previousDragDistance = null;
 
-		this.sectionProperties.usableThickness = 40 * app.roundedDpiScale;
-		this.sectionProperties.scrollBarThickness = 12 * app.roundedDpiScale;
+		this.sectionProperties.usableThickness = (window.mode.isDesktop() ? 0.5 : 1) * 40 * app.roundedDpiScale;
+		this.sectionProperties.scrollBarThickness = (window.mode.isDesktop() ? 0.5 : 1) * 24 * app.roundedDpiScale;
 		this.sectionProperties.edgeOffset = 0;
 
 		this.sectionProperties.drawScrollBarRailway = true;
-		this.sectionProperties.scrollBarRailwayThickness = 12 * app.roundedDpiScale;
+		this.sectionProperties.scrollBarRailwayThickness = (window.mode.isDesktop() ? 0.5 : 1) * 24 * app.roundedDpiScale;
 		this.sectionProperties.scrollBarRailwayAlpha = this.map._docLayer._docType === 'spreadsheet' ? 1.0 : 0.5;
 		this.sectionProperties.scrollBarRailwayColor = '#EFEFEF';
 
@@ -610,12 +610,12 @@ export class ScrollSection extends CanvasSectionObject {
 	}
 
 	private increaseScrollBarThickness () : void {
-		this.sectionProperties.scrollBarThickness = 8 * app.roundedDpiScale;
+		this.sectionProperties.scrollBarThickness = (window.mode.isDesktop() ? 0.5 : 1) * 32 * app.roundedDpiScale;
 		this.containerObject.requestReDraw();
 	}
 
 	private decreaseScrollBarThickness () : void {
-		this.sectionProperties.scrollBarThickness = 6 * app.roundedDpiScale;
+		this.sectionProperties.scrollBarThickness = (window.mode.isDesktop() ? 0.5 : 1) * 24 * app.roundedDpiScale;
 		this.containerObject.requestReDraw();
 	}
 
