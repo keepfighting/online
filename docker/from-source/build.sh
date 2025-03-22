@@ -158,8 +158,8 @@ if [ -z "$NO_DOCKER_IMAGE" ]; then
   # 开启运行测试容器
   sudo docker stop pushdoc && sudo docker rm pushdoc || exit 1
   sudo docker stop pushdocssl && sudo docker rm pushdocssl || exit 1
-  sudo docker run -t -d -p 9981:9980 -v /home/cool/coolwsd/coolwsd.xml:/etc/coolwsd/coolwsd.xml -e "extra_params=--o:ssl.enable=false --o:admin_console.username=pushsoft --o:admin_console.password=pushi123" --name pushdoc 10.0.35.16:5000/doc   . || exit 1
-  sudo docker run -t -d -p 9980:9980 -v /home/cool/coolwsd/coolwsd.xml:/etc/coolwsd/coolwsd.xml -e "extra_params=--o:ssl.enable=true --o:admin_console.username=pushsoft --o:admin_console.password=pushi123" --name pushdocssl 10.0.35.16:5000/doc   . || exit 1
+  sudo docker run -t -d -p 9980:9980 -v /home/cool/coolwsd/coolwsd.xml:/etc/coolwsd/coolwsd.xml -e "extra_params=--o:ssl.enable=false --o:admin_console.username=pushsoft --o:admin_console.password=pushi123" --name pushdoc 10.0.35.16:5000/doc   . || exit 1
+  sudo docker run -t -d -p 9981:9980 -v /home/cool/coolwsd/coolwsd.xml:/etc/coolwsd/coolwsd.xml -e "extra_params=--o:ssl.enable=true --o:admin_console.username=pushsoft --o:admin_console.password=pushi123" --name pushdocssl 10.0.35.16:5000/doc   . || exit 1
 else
   echo "Skipping docker image build"
 fi;
