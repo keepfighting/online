@@ -13,7 +13,7 @@
 	/* Shared color for cell and selection border */
 	--cell-cursor-selection-border-color: var(--color-primary);
 
-	--btn-size: 28px;
+	--btn-size: 36px;
 	--btn-padding: 2px;
 	--btn-img-size: calc(var(--btn-size) - var(--btn-padding) * 2);
 	--btn-color-colorpicker-size: 4px;
