@@ -114,20 +114,20 @@ L.Control.Menubar = L.Control.extend({
 				{type: 'separator'},
 				{uno: '.uno:SearchDialog'},
 				{type: 'separator'},
-				{name: _UNO('.uno:ChangesMenu', 'text'), id: 'changesmenu', type: 'menu', menu: [
-					{uno: '.uno:TrackChanges'},
-					{uno: '.uno:ShowTrackedChanges'},
-					{type: 'separator'},
-					{uno: '.uno:AcceptTrackedChanges'},
-					{uno: '.uno:AcceptTrackedChange'},
-					{uno: '.uno:AcceptTrackedChangeToNext'},
-					{name: _UNO('.uno:AcceptAllTrackedChanges', 'text'), id: 'acceptalltrackedchanges', type: 'action'},
-					{uno: '.uno:RejectTrackedChange'},
-					{uno: '.uno:RejectTrackedChangeToNext'},
-					{name: _UNO('.uno:RejectAllTrackedChanges', 'text'), id: 'rejectalltrackedchanges', type: 'action'},
-					{uno: '.uno:PreviousTrackedChange'},
-					{uno: '.uno:NextTrackedChange'}
-				]}
+				// {name: _UNO('.uno:ChangesMenu', 'text'), id: 'changesmenu', type: 'menu', menu: [
+				// 	{uno: '.uno:TrackChanges'},
+				// 	{uno: '.uno:ShowTrackedChanges'},
+				// 	{type: 'separator'},
+				// 	{uno: '.uno:AcceptTrackedChanges'},
+				// 	{uno: '.uno:AcceptTrackedChange'},
+				// 	{uno: '.uno:AcceptTrackedChangeToNext'},
+				// 	{name: _UNO('.uno:AcceptAllTrackedChanges', 'text'), id: 'acceptalltrackedchanges', type: 'action'},
+				// 	{uno: '.uno:RejectTrackedChange'},
+				// 	{uno: '.uno:RejectTrackedChangeToNext'},
+				// 	{name: _UNO('.uno:RejectAllTrackedChanges', 'text'), id: 'rejectalltrackedchanges', type: 'action'},
+				// 	{uno: '.uno:PreviousTrackedChange'},
+				// 	{uno: '.uno:NextTrackedChange'}
+				// ]}
 			]},
 			{name: _UNO('.uno:ViewMenu', 'text'), id: 'view', type: 'menu',
 			 menu: (window.mode.isTablet() ? [
@@ -1029,15 +1029,15 @@ L.Control.Menubar = L.Control.extend({
 				{uno: '.uno:Paste'},
 				{uno: '.uno:SelectAll'}
 			]},
-			{name: _UNO('.uno:ChangesMenu', 'text'), id: 'changesmenu', type: 'menu', menu: [
-				{uno: '.uno:TrackChanges'},
-				{uno: '.uno:ShowTrackedChanges'},
-				{type: 'separator'},
-				{name: _UNO('.uno:AcceptAllTrackedChanges', 'text'), id: 'acceptalltrackedchanges', type: 'action'},
-				{name: _UNO('.uno:RejectAllTrackedChanges', 'text'), id: 'rejectalltrackedchanges', type: 'action'},
-				{uno: '.uno:PreviousTrackedChange'},
-				{uno: '.uno:NextTrackedChange'}
-			]},
+			// {name: _UNO('.uno:ChangesMenu', 'text'), id: 'changesmenu', type: 'menu', menu: [
+			// 	{uno: '.uno:TrackChanges'},
+			// 	{uno: '.uno:ShowTrackedChanges'},
+			// 	{type: 'separator'},
+			// 	{name: _UNO('.uno:AcceptAllTrackedChanges', 'text'), id: 'acceptalltrackedchanges', type: 'action'},
+			// 	{name: _UNO('.uno:RejectAllTrackedChanges', 'text'), id: 'rejectalltrackedchanges', type: 'action'},
+			// 	{uno: '.uno:PreviousTrackedChange'},
+			// 	{uno: '.uno:NextTrackedChange'}
+			// ]},
 			{name: _UNO('.uno:ViewMenu', 'text'), id: 'view', type: 'menu', menu: [
 				{name: _UNO('.uno:FullScreen', 'text'), id: 'fullscreen', type: 'action', mobileapp: false},
 				{uno: '.uno:ControlCodes', id: 'formattingmarks'},
