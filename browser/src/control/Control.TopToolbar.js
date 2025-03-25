@@ -279,11 +279,11 @@ class TopToolbar extends JSDialog.Toolbar {
 		switch (docType) {
 			case 'spreadsheet':
 				if (this.parentContainer) {
-					['reset', 'textalign', 'wraptextbutton', 'breakspacing', 'insertannotation', 'conditionalformatdialog',
+					['reset', 'textalign', 'wraptextbutton', 'breakspacing', 'conditionalformatdialog',
 						'numberformatcurrency', 'numberformatpercent',
 						'numberformatincdecimals', 'numberformatdecdecimals', 'break-number', 'togglemergecells', 'breakmergecells',
 						'setborderstyle', 'sortascending', 'sortdescending', 'breaksorting', 'backgroundcolor', 'breaksidebar', 'sidebar', 'printoptions'
-					].forEach((id) => {
+					].forEach((id) => { // 'insertannotation', 
 						this.showItem(id, true);
 					});
 
@@ -302,8 +302,8 @@ class TopToolbar extends JSDialog.Toolbar {
 				if (this.parentContainer) {
 					['fontcolorwriter', 'reset', 'leftpara', 'centerpara', 'rightpara', 'justifypara', 'breakpara', 'linespacing',
 						'breakspacing', 'defaultbullet', 'defaultnumbering', 'breakbullet', 'incrementindent', 'decrementindent',
-						'breakindent', 'inserttable', 'insertannotation', 'backcolor', 'breaksidebar', 'sidebar'
-					].forEach((id) => {
+						'breakindent', 'inserttable', 'backcolor', 'breaksidebar', 'sidebar'
+					].forEach((id) => { // 'insertannotation', 
 						this.showItem(id, true);
 					});
 
@@ -333,9 +333,9 @@ class TopToolbar extends JSDialog.Toolbar {
 					['resetimpress', 'breaksidebar', 'modifypage',
 						'leftpara', 'centerpara', 'rightpara', 'justifypara', 'breakpara', 'linespacing',
 						'gridvisible', 'griduse',
-						'breakspacing', 'defaultbullet', 'defaultnumbering', 'breakbullet', 'inserttextbox', 'inserttable', 'insertannotation', 'backcolor',
+						'breakspacing', 'defaultbullet', 'defaultnumbering', 'breakbullet', 'inserttextbox', 'inserttable',  'backcolor',
 						'breaksidebar', 'modifypage', 'slidechangewindow', 'customanimation', 'masterslidespanel', 'navigator'
-					].forEach((id) => {
+					].forEach((id) => { // 'insertannotation',
 						this.showItem(id, true);
 					});
 
