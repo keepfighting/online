@@ -13,3 +13,22 @@ this.showItem('comment_wizard', false);
 		--exclude='multidocs.html' \
 
         browser/Makefile.am
+
+tar xvf core-co-24.04-assets.tar.gz
+
+cat  ~/.bashrc
+
+export LOCOREPATH=/home/cool
+export http_proxy='http://10.0.32.173:7890'
+export https_proxy='http://10.0.32.173:7890'
+export BUILDDIR='/home/cool/online/docker/from-source/builddir'
+
+./autogen.sh
+
+./configure --enable-silent-rules --with-lokit-path=${LOCOREPATH}/include \
+            --with-lo-path=${LOCOREPATH}/instdir \
+            --enable-debug --enable-cypress
+			--disable-ssl
+
+			make -j $(nproc)
+make run
