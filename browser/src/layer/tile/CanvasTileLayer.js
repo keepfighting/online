@@ -215,9 +215,10 @@ L.TileSectionManager = L.Class.extend({
 		this._zoomAtDocEdgeX = true;
 		this._zoomAtDocEdgeY = true;
 	},
-
 	// Map and TilesSection overlap entirely. Map is above tiles section. In order to handle events in tiles section, we need to mirror them from map.
 	_mirrorEventsFromSourceToCanvasSectionContainer: function (sourceElement) {
+	let lastTime = 0;
+	let count = 0;
 		sourceElement.addEventListener('mousedown', function (e) { app.sectionContainer.onMouseDown(e); }, true);
 		sourceElement.addEventListener('click', function (e) { app.sectionContainer.onClick(e); }, true);
 		sourceElement.addEventListener('dblclick', function (e) { app.sectionContainer.onDoubleClick(e); }, true);
@@ -226,7 +227,29 @@ L.TileSectionManager = L.Class.extend({
 		sourceElement.addEventListener('mouseleave', function (e) { app.sectionContainer.onMouseLeave(e); }, true);
 		sourceElement.addEventListener('mouseenter', function (e) { app.sectionContainer.onMouseEnter(e); }, true);
 		sourceElement.addEventListener('touchstart', function (e) { app.sectionContainer.onTouchStart(e); }, true);
-		sourceElement.addEventListener('touchmove', function (e) { app.sectionContainer.onTouchMove(e); }, true);
+		sourceElement.addEventListener('touchmove', function (e) {
+			const now = performance.now();
+			const interval = now - lastTime;
+			lastTime = now;
+			count++;
+
+			// 每秒输出一次平均频率
+			if (count % 10 === 0) {
+				const fps = Math.round(1000 / interval);
+				console.log(`Current rate: ~${fps}Hz`);
+			}
+			// app.sectionContainer.onTouchMove(e);
+			// 增加画布的溢出检查
+			const scrollSection = app.sectionContainer.getSectionWithName(L.CSections.Scroll.name);
+			const diffH = scrollSection.getHorizontalScrollProperties();
+			const diffV = scrollSection.getVerticalScrollProperties();
+			if (diffH.enableMove || diffV.enableMove) {
+				app.sectionContainer.onTouchMove(e);
+			}
+			else {
+				app.sectionContainer.onTouchCancel(e);
+			}
+		}, true);
 		sourceElement.addEventListener('touchend', function (e) { app.sectionContainer.onTouchEnd(e); }, true);
 		sourceElement.addEventListener('touchcancel', function (e) { app.sectionContainer.onTouchCancel(e); }, true);
 	},
@@ -2843,7 +2866,7 @@ L.CanvasTileLayer = L.Layer.extend({
 		}
 
 		this._sendClientZoom();
-
+		console.info('_postMouseEvent:', ...arguments); 
 		this._sendClientVisibleArea();
 
 		const verticalOffset = this.getFiledBasedViewVerticalOffset();
@@ -3417,6 +3440,8 @@ L.CanvasTileLayer = L.Layer.extend({
 	},
 
 	_onDragStart: function () {
+		console.log('dragstart moveend updateScrollOffset');
+
 		this._map.on('moveend', this._updateScrollOffset, this);
 	},
 
@@ -4362,10 +4387,27 @@ L.CanvasTileLayer = L.Layer.extend({
 		}
 		if (this._clientVisibleArea !== newClientVisibleArea || forceUpdate) {
 			// Visible area is dirty, update it on the server
-			app.socket.sendMessage(newClientVisibleArea);
+			this._debounce(function () {
+				this._startTime = null;
+				app.socket.sendMessage(newClientVisibleArea);
+			});
 			if (!this._map._fatal && app.idleHandler._active && app.socket.connected())
 				this._clientVisibleArea = newClientVisibleArea;
 		}
+	},
+
+	_debounce(callback) {
+		const debounce = 300;
+		if (!this._startTime) {
+			this._startTime = +new Date();
+		}
+
+		var left = Math.max(debounce - (+new Date() - this._startTime), 0);
+		if (this._timer) clearTimeout(this._timer);
+
+		this._timer = setTimeout(L.bind(callback, this), left);
+
+		return;
 	},
 
 	// Update debug overlay for a tile

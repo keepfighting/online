@@ -83,7 +83,7 @@ export class ScrollSection extends CanvasSectionObject {
 		this.sectionProperties.mouseIsOnVerticalScrollBar = false;
 		this.sectionProperties.mouseIsOnHorizontalScrollBar = false;
 
-		this.sectionProperties.minimumScrollSize = 80 * app.roundedDpiScale;
+		this.sectionProperties.minimumScrollSize = this.getThickness() + 50 * app.roundedDpiScale;
 
 		this.sectionProperties.circleSliderRadius = 24 * app.roundedDpiScale; // Radius of the mobile vertical circular slider.
 		this.sectionProperties.arrowCornerLength = 10 * app.roundedDpiScale; // Corner length of the arrows inside circular slider.
@@ -101,7 +101,7 @@ export class ScrollSection extends CanvasSectionObject {
 		this.sectionProperties.yOffset = 0;
 		this.sectionProperties.xOffset = 0;
 
-		this.sectionProperties.horizontalScrollRightOffset = this.sectionProperties.usableThickness * 2; // To prevent overlapping of the scroll bars.
+		this.sectionProperties.horizontalScrollRightOffset = 0; // this.sectionProperties.usableThickness; // * 2 To prevent overlapping of the scroll bars.
 
 		this.sectionProperties.animatingVerticalScrollBar = false;
 		this.sectionProperties.animatingHorizontalScrollBar = false;
@@ -286,6 +286,7 @@ export class ScrollSection extends CanvasSectionObject {
 		result.startY = Math.round(this.documentTopLeft[1] / result.ratio + this.sectionProperties.yOffset);
 
 		result.verticalScrollStep = this.size[1] / 2;
+		result.enableMove = (this.getVerticalScrollLength() - result.scrollSize - result.startY) > 0 ? true : false;
 
 		return result;
 	}
@@ -352,6 +353,7 @@ export class ScrollSection extends CanvasSectionObject {
 		result.startX = Math.round(this.documentTopLeft[0] / result.ratio + this.sectionProperties.xOffset);
 
 		result.horizontalScrollStep = this.size[0] / 2;
+		result.enableMove = (this.getHorizontalScrollLength() - result.scrollSize - result.startX - this.getThickness()) > 0 ? true : false;
 
 		return result;
 	}
@@ -607,6 +609,10 @@ export class ScrollSection extends CanvasSectionObject {
 
 			this.sectionProperties.animatingVerticalScrollBar = this.startAnimating(options);
 		}
+	}
+
+	private getThickness (): number {
+		return (window.mode.isDesktop() ? 0.5 : 1) * 32 * app.roundedDpiScale;
 	}
 
 	private increaseScrollBarThickness () : void {
@@ -869,6 +875,7 @@ export class ScrollSection extends CanvasSectionObject {
 	public onMouseMove (position: Array<number>, dragDistance: Array<number>, e: MouseEvent): void {
 		this.clearQuickScrollTimeout();
 
+		console.log('onmousemove', e);
 		if (this.sectionProperties.clickScrollVertical && this.containerObject.isDraggingSomething()) {
 			if (!this.sectionProperties.previousDragDistance) {
 				this.sectionProperties.previousDragDistance = [0, 0];
@@ -907,7 +914,12 @@ export class ScrollSection extends CanvasSectionObject {
 			e.stopPropagation(); // Don't propagate to map.
 			this.stopPropagating(); // Don't propagate to bound sections.
 		}
+		// else if (dragDistance) {
+		// 	e.stopPropagation(); // Don't propagate to map.
+		// 	this.stopPropagating(); // Don't propagate to bound sections.
+		// }
 		else {
+			console.log('else', e, dragDistance, position );
 			this.isMouseOnScrollBar(position);
 		}
 	}
@@ -1088,6 +1100,7 @@ export class ScrollSection extends CanvasSectionObject {
 
 		this.sectionProperties.previousDragDistance = null;
 		this.onMouseMove(point, null, e);
+		// this.isMouseOnScrollBar(point);
 	}
 
 	private performVerticalScroll (delta: number): void {

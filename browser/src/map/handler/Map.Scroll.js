@@ -6,7 +6,7 @@
 /* global app */
 L.Map.mergeOptions({
 	scrollHandler: true,
-	wheelDebounceTime: 40,
+	wheelDebounceTime: 80,
 	// Max idle time w.r.t ctrl+wheel events before invoking "zoomStepEnd".
 	wheelZoomStepEndAfter: 500,
 	// Step size in zoom level(log scale) for ctrl + wheel zoom animation.
