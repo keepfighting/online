@@ -149,16 +149,28 @@ if [ -z "$NO_DOCKER_IMAGE" ]; then
   # sudo docker build --no-cache -t pushsoft/codebase -f Ubuntu-Base .  || exit 1
   # sudo docker build --no-cache -t pushsoft/codecore -f Ubuntu-Code-Core .  || exit 1
   sudo docker build --no-cache -t pushsoft/code -f Ubuntu-Code  . || exit 1
-  # sudo docker images --filter "dangling=true" || exit 1
-  # sudo docker image prune -f || exit 1
-  sudo docker tag pushsoft/code 10.0.35.16:5000/doc:250319 || exit 1
-  sudo docker tag 10.0.35.16:5000/doc:250319 10.0.35.16:5000/doc:latest || exit 1
+  # tagging the images...
+  sudo docker tag pushsoft/codebase 10.0.35.16:5000/docbase:250325 || exit 1
+  sudo docker tag pushsoft/codecore 10.0.35.16:5000/doccore:250325 || exit 1
+  sudo docker tag pushsoft/code 10.0.35.16:5000/doc:250325 || exit 1
+  sudo docker tag 10.0.35.16:5000/docbase:250325 10.0.35.16:5000/docbase:latest || exit 1
+  sudo docker tag 10.0.35.16:5000/doccore:250325 10.0.35.16:5000/doccore:latest || exit 1
+  sudo docker tag 10.0.35.16:5000/doc:250325 10.0.35.16:5000/doc:latest || exit 1
+  # 推送doc
+  sudo docker push 10.0.35.16:5000/docbase:250325 || exit 1
+  sudo docker push 10.0.35.16:5000/docbase || exit 1
+  sudo docker push 10.0.35.16:5000/doccore:250325 || exit 1
+  sudo docker push 10.0.35.16:5000/doccore || exit 1
+  sudo docker push 10.0.35.16:5000/doc:250325 || exit 1
   sudo docker push 10.0.35.16:5000/doc || exit 1
+  # 清理Dangling Images:
+  sudo docker images --filter "dangling=true" || exit 1
+  sudo docker image prune -f || exit 1
   # 开启运行测试容器
   sudo docker stop pushdoc && sudo docker rm pushdoc || exit 1
   sudo docker stop pushdocssl && sudo docker rm pushdocssl || exit 1
-  sudo docker run -t -d -p 9981:9980 -v /home/cool/coolwsd/coolwsd.xml:/etc/coolwsd/coolwsd.xml -e "extra_params=--o:ssl.enable=false --o:admin_console.username=pushsoft --o:admin_console.password=pushi123" --name pushdoc 10.0.35.16:5000/doc   . || exit 1
-  sudo docker run -t -d -p 9980:9980 -v /home/cool/coolwsd/coolwsd.xml:/etc/coolwsd/coolwsd.xml -e "extra_params=--o:ssl.enable=true --o:admin_console.username=pushsoft --o:admin_console.password=pushi123" --name pushdocssl 10.0.35.16:5000/doc   . || exit 1
+  sudo docker run -t -d -p 9980:9980 -v /home/cool/coolwsd/coolwsd.xml:/etc/coolwsd/coolwsd.xml -e "extra_params=--o:ssl.enable=false --o:admin_console.username=pushsoft --o:admin_console.password=pushi123" --name pushdoc 10.0.35.16:5000/doc   . || exit 1
+  sudo docker run -t -d -p 9981:9980 -v /home/cool/coolwsd/coolwsd.xml:/etc/coolwsd/coolwsd.xml -e "extra_params=--o:ssl.enable=true --o:admin_console.username=pushsoft --o:admin_console.password=pushi123" --name pushdocssl 10.0.35.16:5000/doc   . || exit 1
 else
   echo "Skipping docker image build"
 fi;
