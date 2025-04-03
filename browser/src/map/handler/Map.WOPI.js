@@ -309,6 +309,11 @@ L.Map.WOPI = L.Handler.extend({
 			}
 		}
 
+		if (msg.MessageId === 'SetTouchDebounce') {
+			app.touchDebounce = msg.Values;
+			return;
+		}
+
 		// allow closing documents before they are completely loaded
 		if (msg.MessageId === 'Close_Session') {
 			app.socket.sendMessage('closedocument');
