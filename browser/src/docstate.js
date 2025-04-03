@@ -16,6 +16,7 @@
 		* var autoFillSection = new app.definitions.AutoFillMarkerSection();
 */
 window.app = {
+	touchDebounce: 300,
 	definitions: {}, // Class instances are created using definitions under this variable.
 	dpiScale: window.devicePixelRatio,
 	roundedDpiScale: Math.round(window.devicePixelRatio),

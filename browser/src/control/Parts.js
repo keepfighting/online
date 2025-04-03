@@ -299,6 +299,7 @@ L.Map.include({
 		if (!this.isEditMode() && app.file.writer.pageRectangleList.length > docLayer._currentPage) {
 			var pos = new L.Point(app.file.writer.pageRectangleList[docLayer._currentPage][0], app.file.writer.pageRectangleList[docLayer._currentPage][1]);
 			pos = docLayer._twipsToCorePixels(pos);
+			// 手机端存在dpi app.roundedDpiScale 1
 			this.scrollTop(pos.y);
 			var state = 'Page ' + (docLayer._currentPage + 1) + ' of ' + app.file.writer.pageRectangleList.length;
 			this.fire('updatestatepagenumber',{

@@ -4221,9 +4221,10 @@ L.CanvasTileLayer = L.Layer.extend({
 	},
 
 	_twipsToCorePixels: function (twips) {
+		// 手机端存在dpi app.roundedDpiScale 1
 		return new L.Point(
-			twips.x / this._tileWidthTwips * this._tileSize,
-			twips.y / this._tileHeightTwips * this._tileSize);
+			twips.x / this._tileWidthTwips * this._tileSize / app.roundedDpiScale,
+			twips.y / this._tileHeightTwips * this._tileSize / app.roundedDpiScale);
 	},
 
 	_twipsToCorePixelsBounds: function (twips) {
@@ -4397,7 +4398,7 @@ L.CanvasTileLayer = L.Layer.extend({
 	},
 
 	_debounce(callback) {
-		const debounce = 300;
+		const debounce =  app.touchDebounce || 300;
 		if (!this._startTime) {
 			this._startTime = +new Date();
 		}

@@ -1293,7 +1293,7 @@ class CanvasSectionContainer {
 	private _startTime: number;
 	private _timer: any;
 	private onTouchMove(e: TouchEvent) {
-		const debounce: number = 300;
+		const debounce: number = app.touchDebounce || 300;
 		if (!this._startTime) {
 			this._startTime = +new Date();
 		}
