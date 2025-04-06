@@ -497,10 +497,11 @@ void RequestVettingStation::createClientSession(const std::shared_ptr<DocumentBr
 
     // Transfer the client socket to the DocumentBroker when we get back to the poll:
     std::shared_ptr<WebSocketHandler> ws = _ws;
+    std::shared_ptr<RequestVettingStation> rvs = shared_from_this(); // Extend our lifetime.
     docBroker->setupTransfer(
         socket,
         [clientSession = std::move(clientSession), wopiFileInfo = std::move(wopiFileInfo),
-         ws = std::move(ws), docBroker](const std::shared_ptr<Socket>& moveSocket)
+         ws = std::move(ws), docBroker, rvs](const std::shared_ptr<Socket>& moveSocket)
         {
             try
             {
@@ -509,13 +510,14 @@ void RequestVettingStation::createClientSession(const std::shared_ptr<DocumentBr
                 auto streamSocket = std::static_pointer_cast<StreamSocket>(moveSocket);
 
                 // Set WebSocketHandler's socket after its construction for shared_ptr goodness.
+                // Note: this replaces ClientRequestDispatcher, which owns us.
                 streamSocket->setHandler(ws);
 
                 LOG_DBG_S('#' << moveSocket->getFD() << " handler is " << clientSession->getName());
 
                 // Add and load the session.
                 // Will download synchronously, but in own docBroker thread.
-                docBroker->addSession(clientSession, std::move(*wopiFileInfo));
+                docBroker->addSession(clientSession, std::move(*wopiFileInfo), rvs);
 
                 COOLWSD::checkDiskSpaceAndWarnClients(true);
                 // Users of development versions get just an info

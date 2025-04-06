@@ -53,6 +53,7 @@ class LockContext;
 class PresetsInstallTask;
 class TileCache;
 class Message;
+class RequestVettingStation;
 
 namespace Poco {
     namespace JSON {
@@ -360,7 +361,8 @@ public:
 
     /// Add a new session. Returns the new number of sessions.
     std::size_t addSession(const std::shared_ptr<ClientSession>& session,
-                           std::unique_ptr<WopiStorage::WOPIFileInfo> wopiFileInfo = nullptr);
+                           std::unique_ptr<WopiStorage::WOPIFileInfo> wopiFileInfo = nullptr,
+                           const std::shared_ptr<RequestVettingStation>& rvs = nullptr);
 
     /// Removes a session by ID. Returns the new number of sessions.
     std::size_t removeSession(const std::shared_ptr<ClientSession>& session);
@@ -1713,6 +1715,13 @@ private:
 #endif
 
     std::shared_ptr<DocumentBrokerPoll> _poll;
+
+    /// The (optional) RVS instance that created us.
+    /// We own it because, when we transfer the client
+    /// socket to our poll, we replace the original
+    /// ProtocolHandlerInterface (ClientRequestDispatcher,
+    /// which owns RVS) with WebSocketHandler as we upgrade to WS.
+    std::shared_ptr<RequestVettingStation> _rvs;
 
     /// The current upload request, if any.
     /// For now we can only have one at a time.

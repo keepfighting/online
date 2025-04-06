@@ -40,6 +40,7 @@
 #include "Exceptions.hpp"
 #include "COOLWSD.hpp"
 #include "FileServer.hpp"
+#include "RequestVettingStation.hpp"
 #include "Socket.hpp"
 #include "Storage.hpp"
 #include "TileCache.hpp"
@@ -3657,10 +3658,14 @@ std::string DocumentBroker::getJailRoot() const
 }
 
 std::size_t DocumentBroker::addSession(const std::shared_ptr<ClientSession>& session,
-                                       std::unique_ptr<WopiStorage::WOPIFileInfo> wopiFileInfo)
+                                       std::unique_ptr<WopiStorage::WOPIFileInfo> wopiFileInfo,
+                                       const std::shared_ptr<RequestVettingStation>& rvs)
 {
     try
     {
+        // Make sure we extend the life of RVS that created us,
+        // as its owner will go away (see RequestVettingStation::createClientSession()).
+        _rvs = rvs;
         return addSessionInternal(session, std::move(wopiFileInfo));
     }
     catch (const std::exception& exc)
