@@ -1534,6 +1534,7 @@ bool ClientSession::loadDocument(const char* /*buffer*/, int /*length*/,
         overrideDocOption();
 
         std::ostringstream oss;
+        oss << std::boolalpha;
         oss << "load url=" << docBroker->getPublicUri().toString();
 
 #if ENABLE_SSL
@@ -1639,7 +1640,7 @@ bool ClientSession::loadDocument(const char* /*buffer*/, int /*length*/,
 
         if (ConfigUtil::hasProperty("security.enable_macros_execution"))
         {
-            oss << " enableMacrosExecution=" << std::boolalpha
+            oss << " enableMacrosExecution="
                 << ConfigUtil::getConfigValue<bool>("security.enable_macros_execution", false);
         }
 
@@ -1656,7 +1657,7 @@ bool ClientSession::loadDocument(const char* /*buffer*/, int /*length*/,
 
         if (ConfigUtil::getConfigValue<bool>("accessibility.enable", false))
         {
-            oss << " accessibilityState=" << std::boolalpha << getAccessibilityState();
+            oss << " accessibilityState=" << getAccessibilityState();
         }
 
         if (!getDocOptions().empty())
