@@ -4176,9 +4176,10 @@ L.CanvasTileLayer = L.Layer.extend({
 	},
 
 	_twipsToCorePixels: function (twips) {
+		// 手机端存在dpi app.roundedDpiScale 1
 		return new L.Point(
-			twips.x * app.twipsToPixels,
-			twips.y * app.twipsToPixels);
+			twips.x * app.twipsToPixels / app.roundedDpiScale,
+			twips.y * app.twipsToPixels / app.roundedDpiScale);
 	},
 
 	_twipsToCorePixelsBounds: function (twips) {

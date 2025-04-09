@@ -124,8 +124,8 @@ rm -rf "$INSTDIR/usr" || true
 
 # # build
 # ( cd ~/online && ./autogen.sh ) || exit 1
-# ( cd ~/online && ./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var --enable-silent-rules --enable-cypress --disable-tests --with-lokit-path="$BUILDDIR"/core/include --with-lo-path=/opt/lokit --with-poco-includes=$BUILDDIR/poco/include --with-poco-libs=$BUILDDIR/poco/lib $ONLINE_EXTRA_BUILD_OPTIONS) || exit 1
-# ( cd ~/online && make -j $(nproc)) || exit 1
+( cd ~/online && ./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var --enable-silent-rules --enable-cypress --disable-tests --with-lokit-path="$BUILDDIR"/core/include --with-lo-path=/opt/lokit --with-poco-includes=$BUILDDIR/poco/include --with-poco-libs=$BUILDDIR/poco/lib $ONLINE_EXTRA_BUILD_OPTIONS) || exit 1
+( cd ~/online && make -j $(nproc)) || exit 1
 
 # # # # copy stuff
 ( cd ~/online && DESTDIR="$INSTDIR" make install ) || exit 1
@@ -152,9 +152,9 @@ if [ -z "$NO_DOCKER_IMAGE" ]; then
   # sudo docker images --filter "dangling=true" || exit 1
   # sudo docker image prune -f || exit 1
   sudo docker tag pushsoft/code 10.0.35.16:5000/doc:latest || exit 1
-  # sudo docker tag 10.0.35.16:5000/doc:latest 10.0.35.16:5000/doc:25 || exit 1
   sudo docker push 10.0.35.16:5000/doc:latest || exit 1
-  # sudo docker push 10.0.35.16:5000/doc:25 || exit 1
+  # sudo docker tag 10.0.35.16:5000/doc:latest 10.0.35.16:5000/doc:250409 && sudo docker push 10.0.35.16:5000/doc:250409 || exit 1
+
   # 开启运行测试容器
   # sudo docker stop pushdoc && sudo docker rm pushdoc || exit 1
   sudo docker run -t -d -p 9980:9980 -v /home/cool/coolwsd/coolwsd.xml:/etc/coolwsd/coolwsd.xml -e "extra_params=--o:ssl.enable=false --o:admin_console.username=pushsoft --o:admin_console.password=pushi123" --name pushdoc 10.0.35.16:5000/doc   . || exit 1
