@@ -360,7 +360,7 @@ L.Map.include({
 		if ((command.startsWith('.uno:Sidebar') && !command.startsWith('.uno:SidebarShow')) ||
 			command.startsWith('.uno:SlideChangeWindow') || command.startsWith('.uno:CustomAnimation') ||
 			command.startsWith('.uno:MasterSlidesPanel') || command.startsWith('.uno:ModifyPage') ||
-			command.startsWith('.uno:SidebarDeck') || command.startsWith('.uno:EditStyle')) {
+			command.startsWith('.uno:Navigator') || command.startsWith('.uno:SidebarDeck')) {
 
 			// sidebar control is present only in desktop/tablet case
 			if (this.sidebar) {
@@ -379,23 +379,23 @@ L.Map.include({
 		var isAllowedInReadOnly = false;
 		var allowedCommands = ['.uno:Save', '.uno:WordCountDialog',
 			'.uno:Signature', '.uno:PrepareSignature', '.uno:DownloadSignature', '.uno:InsertSignatureLine',
-			'.uno:ShowResolvedAnnotations',
+			// '.uno:ShowResolvedAnnotations',
 			'.uno:ToolbarMode?Mode:string=notebookbar_online.ui', '.uno:ToolbarMode?Mode:string=Default',
 			'.uno:ExportToEPUB', '.uno:ExportToPDF', '.uno:ExportDirectToPDF', '.uno:MoveKeepInsertMode', '.uno:ShowRuler'];
-		if (app.isCommentEditingAllowed()) {
-			allowedCommands.push('.uno:InsertAnnotation','.uno:DeleteCommentThread', '.uno:DeleteAnnotation', '.uno:DeleteNote',
-				'.uno:DeleteComment', '.uno:ReplyComment', '.uno:ReplyToAnnotation', '.uno:PromoteComment', '.uno:ResolveComment',
-				'.uno:ResolveCommentThread', '.uno:ResolveComment', '.uno:EditAnnotation', '.uno:ExportToEPUB', '.uno:ExportToPDF',
-				'.uno:ExportDirectToPDF');
+		// if (app.isCommentEditingAllowed()) {
+		// 	allowedCommands.push('.uno:InsertAnnotation','.uno:DeleteCommentThread', '.uno:DeleteAnnotation', '.uno:DeleteNote',
+		// 		'.uno:DeleteComment', '.uno:ReplyComment', '.uno:ReplyToAnnotation', '.uno:PromoteComment', '.uno:ResolveComment',
+		// 		'.uno:ResolveCommentThread', '.uno:ResolveComment', '.uno:EditAnnotation', '.uno:ExportToEPUB', '.uno:ExportToPDF',
+		// 		'.uno:ExportDirectToPDF');
 
-			const graphicInfo = GraphicSelection.extraInfo;
-			if (graphicInfo && graphicInfo.isSignature)
-			{
-				// If the just added signature line shape is selected, allow
-				// moving/resizing it.
-				allowedCommands.push('.uno:TransformDialog', '.uno:MoveShapeHandle');
-			}
-		}
+		// 	const graphicInfo = GraphicSelection.extraInfo;
+		// 	if (graphicInfo && graphicInfo.isSignature)
+		// 	{
+		// 		// If the just added signature line shape is selected, allow
+		// 		// moving/resizing it.
+		// 		allowedCommands.push('.uno:TransformDialog', '.uno:MoveShapeHandle');
+		// 	}
+		// }
 
 		for (var i in allowedCommands) {
 			if (allowedCommands[i] === command) {
