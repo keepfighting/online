@@ -226,7 +226,21 @@ L.TileSectionManager = L.Class.extend({
 		sourceElement.addEventListener('mouseleave', function (e) { app.sectionContainer.onMouseLeave(e); }, true);
 		sourceElement.addEventListener('mouseenter', function (e) { app.sectionContainer.onMouseEnter(e); }, true);
 		sourceElement.addEventListener('touchstart', function (e) { app.sectionContainer.onTouchStart(e); }, true);
-		sourceElement.addEventListener('touchmove', function (e) { app.sectionContainer.onTouchMove(e); }, true);
+		let lastTime = 0;
+		let count = 0;
+		sourceElement.addEventListener('touchmove', function (e) { 
+			const now = performance.now();
+			const interval = now - lastTime;
+			lastTime = now;
+			count++;
+
+			// 每秒输出一次平均频率
+			if (count % 10 === 0) {
+				const fps = Math.round(1000 / interval);
+				console.log(`Current rate: ~${fps}Hz`);
+			}
+			app.sectionContainer.onTouchMove(e); 
+		}, true);
 		sourceElement.addEventListener('touchend', function (e) { app.sectionContainer.onTouchEnd(e); }, true);
 		sourceElement.addEventListener('touchcancel', function (e) { app.sectionContainer.onTouchCancel(e); }, true);
 	},
