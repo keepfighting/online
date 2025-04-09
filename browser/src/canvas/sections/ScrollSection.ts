@@ -949,8 +949,8 @@ export class ScrollSection extends CanvasSectionObject {
 	*/
 	private quickScrollVertical (point: Array<number>, originalSign?: number): void {
 		// Desktop only for now.
-		if (!(<any>window).mode.isDesktop())
-			return;
+		// if (!(<any>window).mode.isDesktop())
+		// 	return;
 
 		L.DomUtil.addClass(document.documentElement, 'prevent-select');
 		var props = this.getVerticalScrollProperties();
@@ -982,8 +982,8 @@ export class ScrollSection extends CanvasSectionObject {
 	*/
 	private quickScrollHorizontal (point: Array<number>, originalSign?: number): void {
 		// Desktop only for now.
-		if (!(<any>window).mode.isDesktop())
-			return;
+		// if (!(<any>window).mode.isDesktop())
+		// 	return;
 
 		L.DomUtil.addClass(document.documentElement, 'prevent-select');
 		var props = this.getHorizontalScrollProperties();
