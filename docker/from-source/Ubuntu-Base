@@ -11,7 +11,28 @@ FROM 10.0.35.16:5000/ubuntu:22.04
 # install tzdata to accept the TZ environment variable
 # install an editor
 # tdf#117557 - Add CJK Fonts to Collabora Online Docker Image
-RUN apt-get update && \
+# RUN curl -qO - https://archive.ubuntu.com/ubuntu/+archive.key | sudo apt-key add - && \
+#     curl -qO - https://security.ubuntu.com/ubuntu+archive.key | sudo apt-key add -
+
+   # wget -qO - https://archive.ubuntu.com/ubuntu/project/ubuntu-archive-keyring.gpg | sudo apt-key add - && \
+
+   #  RUN echo "deb https://mirrors.tuna.tsinghua.edu.cn/debian/ bookworm main contrib" > /etc/apt/sources.list && \
+   #  # 删除 apt 缓存
+   #  # 清理 apt 缓存并更新源
+   #  apt-get clean && \
+   #  apt-get update && \
+   #  # # 查看修改后的 sources.list 文件内容
+   #  # cat /etc/apt/sources.list
+   #  RUN echo deb-src http://archive.ubuntu.com/ubuntu/ focal main restricted >> /etc/apt/sources.list && \
+   #    echo deb-src http://archive.ubuntu.com/ubuntu/ focal-updates main restricted >> /etc/apt/sources.list && \
+   #     echo deb-src http://security.ubuntu.com/ubuntu/ focal-security main restricted >> /etc/apt/sources.list && \
+   #     echo deb-src http://security.ubuntu.com/ubuntu/ focal-security universe >> /etc/apt/sources.list && \
+   #     echo deb-src http://security.ubuntu.com/ubuntu/ focal-security multiverse >> /etc/apt/sources.list && \
+       RUN   apt-get update --allow-unauthenticated --allow-insecure-repositories && \
+   #     apt-get clean && \
+   #  apt-get update && \
+   #  # # 查看修改后的 sources.list 文件内容
+   #  cat /etc/apt/sources.list && \
     apt-get -y install libpng16-16 fontconfig adduser cpio tzdata \
                findutils nano \
                libcap2-bin openssl openssh-client \

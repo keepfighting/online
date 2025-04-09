@@ -62,87 +62,104 @@ BUILDDIR="$SRCDIR/builddir"
 mkdir -p "$BUILDDIR"
 cd "$BUILDDIR"
 
-rm -rf "$INSTDIR" || true
-mkdir -p "$INSTDIR"
+# rm -rf "$INSTDIR" || true
+rm -rf "$INSTDIR/etc" || true
+rm -rf "$INSTDIR/usr" || true
+# mkdir -p "$INSTDIR"
 
 ##### build static poco #####
 
-if test ! -f poco/lib/libPocoFoundation.a ; then
-    wget https://pocoproject.org/releases/poco-1.12.5p2/poco-1.12.5p2-all.tar.gz
-    tar -xzf poco-1.12.5p2-all.tar.gz
-    cd poco-1.12.5p2-all/
-    ./configure --static --no-tests --no-samples --no-sharedlibs --cflags="-fPIC" --omit=Zip,Data,Data/SQLite,Data/ODBC,Data/MySQL,MongoDB,PDF,CppParser,PageCompiler,Redis,Encodings,ActiveRecord --prefix=$BUILDDIR/poco
-    make -j $(nproc)
-    make install
-    cd ..
-fi
+# if test ! -f poco/lib/libPocoFoundation.a ; then
+#     wget https://pocoproject.org/releases/poco-1.12.5p2/poco-1.12.5p2-all.tar.gz
+#     tar -xzf poco-1.12.5p2-all.tar.gz
+#     cd poco-1.12.5p2-all/
+#     ./configure --static --no-tests --no-samples --no-sharedlibs --cflags="-fPIC" --omit=Zip,Data,Data/SQLite,Data/ODBC,Data/MySQL,MongoDB,PDF,CppParser,PageCompiler,Redis,Encodings,ActiveRecord --prefix=$BUILDDIR/poco
+#     make -j $(nproc)
+#     make install
+#     cd ..
+# fi
 
 
 ##### cloning & updating #####
 
-# core repo
-if test ! -d core ; then
-  git clone https://git.libreoffice.org/core || exit 1
-fi
+# # core repo
+# if test ! -d core ; then
+#   git clone https://git.libreoffice.org/core || exit 1
+# fi
 
-( cd core && git fetch --all && git checkout $CORE_BRANCH && ./g pull -r ) || exit 1
-
-
-# online repo
-if test ! -d online ; then
-  git clone --depth=1 "$COLLABORA_ONLINE_REPO" online || exit 1
-fi
-
-( cd online && git fetch --all && git checkout -f $COLLABORA_ONLINE_BRANCH && git clean -f -d && git pull -r ) || exit 1
+# ( cd core && git fetch --all && git checkout $CORE_BRANCH && ./g pull -r ) || exit 1
 
 
-# brand repo
-if test ! -d online-branding ; then
-  git clone git@gitlab.collabora.com:productivity/online-branding.git online-branding || echo "Could not clone this proprietary repo"
-fi
+# # online repo
+# if test ! -d online ; then
+#   git clone --depth=1 "$COLLABORA_ONLINE_REPO" online || exit 1
+# fi
 
-if test -d online-branding ; then
-  ( cd online-branding && git pull -r ) || exit 1
-fi
+# ( cd online && git fetch --all && git checkout -f $COLLABORA_ONLINE_BRANCH && git clean -f -d && git pull -r ) || exit 1
 
-##### LOKit (core) #####
 
-# build
-if [ "$CORE_BRANCH" == "distro/collabora/co-24.04" ]; then
-  ( cd core && ./autogen.sh --with-distro=CPLinux-LOKit --disable-epm --without-package-format --disable-symbols ) || exit 1
-else
-  ( cd core && ./autogen.sh --with-distro=LibreOfficeOnline ) || exit 1
-fi
-( cd core && make $CORE_BUILD_TARGET ) || exit 1
+# # brand repo
+# if test ! -d online-branding ; then
+#   git clone git@gitlab.collabora.com:productivity/online-branding.git online-branding || echo "Could not clone this proprietary repo"
+# fi
 
-# copy stuff
-mkdir -p "$INSTDIR"/opt/
-cp -a core/instdir "$INSTDIR"/opt/lokit
+# if test -d online-branding ; then
+#   ( cd online-branding && git pull -r ) || exit 1
+# fi
 
-##### coolwsd & cool #####
+# ##### LOKit (core) #####
 
-# build
-( cd online && ./autogen.sh ) || exit 1
-( cd online && ./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var --enable-silent-rules --disable-tests --with-lokit-path="$BUILDDIR"/core/include --with-lo-path=/opt/lokit --with-poco-includes=$BUILDDIR/poco/include --with-poco-libs=$BUILDDIR/poco/lib $ONLINE_EXTRA_BUILD_OPTIONS) || exit 1
-( cd online && make -j $(nproc)) || exit 1
+# # build
+# if [ "$CORE_BRANCH" == "distro/collabora/co-24.04" ]; then
+#   ( cd core && ./autogen.sh --with-distro=CPLinux-LOKit --disable-epm --without-package-format --disable-symbols ) || exit 1
+# else
+#   ( cd core && ./autogen.sh --with-distro=LibreOfficeOnline ) || exit 1
+# fi
+# ( cd core && make $CORE_BUILD_TARGET ) || exit 1
 
-# copy stuff
-( cd online && DESTDIR="$INSTDIR" make install ) || exit 1
+# # copy stuff
+# mkdir -p "$INSTDIR"/opt/
+# cp -a ~/instdir "$INSTDIR"/opt/lokit
+
+# ##### coolwsd & cool #####
+
+# # build
+# ( cd ~/online && ./autogen.sh ) || exit 1
+( cd ~/online && ./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var --enable-silent-rules --enable-debug --enable-cypress --disable-tests --with-lokit-path="$BUILDDIR"/core/include --with-lo-path=/opt/lokit --with-poco-includes=$BUILDDIR/poco/include --with-poco-libs=$BUILDDIR/poco/lib $ONLINE_EXTRA_BUILD_OPTIONS) || exit 1
+( cd ~/online && make -j $(nproc)) || exit 1
+
+# # # # copy stuff
+( cd ~/online && DESTDIR="$INSTDIR" make install ) || exit 1
 
 ##### online branding #####
-if test -d online-branding ; then
-  if ! which sass &> /dev/null; then npm install -g sass; fi
-  cd online-branding
-  ./brand.sh $INSTDIR/opt/lokit $INSTDIR/usr/share/coolwsd/browser/dist CODE # CODE
-  ./brand.sh $INSTDIR/opt/lokit $INSTDIR/usr/share/coolwsd/browser/dist NC-theme-community # Nextcloud Office
-  cd ..
-fi
+# if test -d online-branding ; then
+#   if ! which sass &> /dev/null; then npm install -g sass; fi
+#   cd online-branding
+#   ./brand.sh $INSTDIR/opt/lokit $INSTDIR/usr/share/coolwsd/browser/dist CODE # CODE
+#   ./brand.sh $INSTDIR/opt/lokit $INSTDIR/usr/share/coolwsd/browser/dist NC-theme-community # Nextcloud Office
+#   cd ..
+# fi
 
 # Create new docker image
 if [ -z "$NO_DOCKER_IMAGE" ]; then
   cd "$SRCDIR"
+  echo "Building Docker Image...'$SRCDIR'" && \
   cp ../from-packages/scripts/start-collabora-online.sh .
-  docker build --no-cache -t $DOCKER_HUB_REPO:$DOCKER_HUB_TAG -f $HOST_OS . || exit 1
+  # docker build --no-cache -t $DOCKER_HUB_REPO:$DOCKER_HUB_TAG -f $HOST_OS . || exit 1
+  # sudo docker build --no-cache -t pushsoft/codebase -f Ubuntu-Base .  || exit 1
+  # sudo docker build --no-cache -t pushsoft/codecore -f Ubuntu-Code-Core .  || exit 1
+  sudo docker build --no-cache -t pushsoft/code -f Ubuntu-Code  . || exit 1
+  # sudo docker images --filter "dangling=true" || exit 1
+  # sudo docker image prune -f || exit 1
+  sudo docker tag pushsoft/code 10.0.35.16:5000/doc:latest || exit 1
+  # sudo docker tag 10.0.35.16:5000/doc:latest 10.0.35.16:5000/doc:25 || exit 1
+  sudo docker push 10.0.35.16:5000/doc:latest || exit 1
+  # sudo docker push 10.0.35.16:5000/doc:25 || exit 1
+  # 开启运行测试容器
+  sudo docker stop pushdoc && sudo docker rm pushdoc || exit 1
+  sudo docker run -t -d -p 9980:9980 -v /home/cool/coolwsd/coolwsd.xml:/etc/coolwsd/coolwsd.xml -e "extra_params=--o:ssl.enable=false --o:admin_console.username=pushsoft --o:admin_console.password=pushi123" --name pushdoc 10.0.35.16:5000/doc   . || exit 1
+  # sudo docker stop pushdocssl && sudo docker rm pushdocssl || exit 1
+  # sudo docker run -t -d -p 9981:9980 -v /home/cool/coolwsd/coolwsd.xml:/etc/coolwsd/coolwsd.xml -e "extra_params=--o:ssl.enable=true --o:admin_console.username=pushsoft --o:admin_console.password=pushi123" --name pushdocssl 10.0.35.16:5000/doc   . || exit 1
 else
   echo "Skipping docker image build"
 fi;
