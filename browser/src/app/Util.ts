@@ -271,7 +271,7 @@ class Util {
 		}
 		return result;
 	}
-
+	/*
 	public static requestAnimFrame(
 		fn: () => void,
 		// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
@@ -294,6 +294,89 @@ class Util {
 
 	public static MAX_SAFE_INTEGER = Math.pow(2, 3) - 1;
 	public static MIN_SAFE_INTEGER = Util.MAX_SAFE_INTEGER;
+	*/
+
+	/* 修正来源
+(function() {
+	function getPrefixed(name:string) {
+		return (window as any)["webkit" + name] || (window as any)["moz" + name] || (window as any)["ms" + name]
+	}
+	var lastTime = 0;
+	function timeoutDefer(fn: () => void) {
+		var time = +new Date
+		  , timeToCall = Math.max(0, 16 - (time - lastTime));
+		lastTime = time + timeToCall;
+		return window.setTimeout(fn, timeToCall)
+	}
+	var requestFn = window.requestAnimationFrame || getPrefixed("RequestAnimationFrame") || timeoutDefer
+	  , cancelFn = window.cancelAnimationFrame || getPrefixed("CancelAnimationFrame") || getPrefixed("CancelRequestAnimationFrame") || function(id:number) {
+		window.clearTimeout(id)
+	}
+	;
+	L.Util.requestAnimFrame = function(fn: () => void, context:any, immediate?:boolean) {
+		if (immediate && requestFn === timeoutDefer) {
+			fn.call(context)
+		} else {
+			return requestFn.call(window, L.bind(fn, context))
+		}
+	}
+	;
+	L.Util.cancelAnimFrame = function(id:number) {
+		if (id) {
+			cancelFn.call(window, id)
+		}
+	}
+	;
+	L.Util.MAX_SAFE_INTEGER = Math.pow(2, 53) - 1;
+	L.Util.MIN_SAFE_INTEGER = -L.Util.MAX_SAFE_INTEGER
+}
+)();
+	*/
+
+	public static MAX_SAFE_INTEGER = Math.pow(2, 53) - 1;
+	public static MIN_SAFE_INTEGER = -Util.MAX_SAFE_INTEGER;
+
+	private static getPrefixed(name: string) {
+		return (
+			(window as any)['webkit' + name] ||
+			(window as any)['moz' + name] ||
+			(window as any)['ms' + name]
+		);
+	}
+	private static lastTime = 0;
+	private static timeoutDefer(fn: () => void) {
+		var time = +new Date(),
+			timeToCall = Math.max(0, 16 - (time - Util.lastTime));
+		Util.lastTime = time + timeToCall;
+		return window.setTimeout(fn, timeToCall);
+	}
+	private static requestFn =
+		window.requestAnimationFrame ||
+		Util.getPrefixed('RequestAnimationFrame') ||
+		Util.timeoutDefer;
+	private static cancelFn =
+		window.cancelAnimationFrame ||
+		Util.getPrefixed('CancelAnimationFrame') ||
+		Util.getPrefixed('CancelRequestAnimationFrame') ||
+		function (id: number) {
+			window.clearTimeout(id);
+		};
+	public static requestAnimFrame(
+		fn: () => void,
+		context: any,
+		immediate?: boolean,
+	) {
+		if (immediate && Util.requestFn === Util.timeoutDefer) {
+			fn.call(context);
+		} else {
+			return Util.requestFn.call(window, L.bind(fn, context));
+		}
+	}
+	public static cancelAnimFrame(id: number) {
+		if (id) {
+			Util.cancelFn.call(window, id);
+		}
+	}
 }
 
 app.util = Util;

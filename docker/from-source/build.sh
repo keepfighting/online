@@ -125,7 +125,7 @@ rm -rf "$INSTDIR/usr" || true
 
 # # build
 # ( cd ~/online && ./autogen.sh ) || exit 1
-( cd ~/online && ./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var --enable-silent-rules --enable-debug --enable-cypress --disable-tests --with-lokit-path="$BUILDDIR"/core/include --with-lo-path=/opt/lokit --with-poco-includes=$BUILDDIR/poco/include --with-poco-libs=$BUILDDIR/poco/lib $ONLINE_EXTRA_BUILD_OPTIONS) || exit 1
+( cd ~/online && ./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var --enable-silent-rules --enable-cypress --disable-tests --with-lokit-path="$BUILDDIR"/core/include --with-lo-path=/opt/lokit --with-poco-includes=$BUILDDIR/poco/include --with-poco-libs=$BUILDDIR/poco/lib $ONLINE_EXTRA_BUILD_OPTIONS) || exit 1
 ( cd ~/online && make -j $(nproc)) || exit 1
 
 # # # # copy stuff
