@@ -33,12 +33,12 @@ html[dir='rtl'] .sub-menu-arrow {
 	display: none !important;
 }
 
-/* Related to back button */
+/* Related to back button 
 #toolbar-mobile-back {
 	width: 42px !important;
 	position: relative;
 	z-index: 1003;
-}
+}*/
 .editmode-off {
 	background: url('images/lc_closedocmobile.svg') no-repeat center !important;
 }

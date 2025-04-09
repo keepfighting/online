@@ -120,17 +120,17 @@ rm -rf "$INSTDIR/usr" || true
 # # copy stuff
 # mkdir -p "$INSTDIR"/opt/
 # cp -a ~/instdir "$INSTDIR"/opt/lokit
-
 # ##### coolwsd & cool #####
 
 # # build
 # ( cd ~/online && ./autogen.sh ) || exit 1
-( cd ~/online && ./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var --enable-silent-rules --enable-cypress --disable-tests --with-lokit-path="$BUILDDIR"/core/include --with-lo-path=/opt/lokit --with-poco-includes=$BUILDDIR/poco/include --with-poco-libs=$BUILDDIR/poco/lib $ONLINE_EXTRA_BUILD_OPTIONS) || exit 1
-( cd ~/online && make -j $(nproc)) || exit 1
+# ( cd ~/online && ./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var --enable-silent-rules --enable-cypress --disable-tests --with-lokit-path="$BUILDDIR"/core/include --with-lo-path=/opt/lokit --with-poco-includes=$BUILDDIR/poco/include --with-poco-libs=$BUILDDIR/poco/lib $ONLINE_EXTRA_BUILD_OPTIONS) || exit 1
+# ( cd ~/online && make -j $(nproc)) || exit 1
 
 # # # # copy stuff
 ( cd ~/online && DESTDIR="$INSTDIR" make install ) || exit 1
 
+cp -a ~/fonts "$INSTDIR"/usr/share
 ##### online branding #####
 # if test -d online-branding ; then
 #   if ! which sass &> /dev/null; then npm install -g sass; fi
@@ -156,7 +156,7 @@ if [ -z "$NO_DOCKER_IMAGE" ]; then
   sudo docker push 10.0.35.16:5000/doc:latest || exit 1
   # sudo docker push 10.0.35.16:5000/doc:25 || exit 1
   # 开启运行测试容器
-  sudo docker stop pushdoc && sudo docker rm pushdoc || exit 1
+  # sudo docker stop pushdoc && sudo docker rm pushdoc || exit 1
   sudo docker run -t -d -p 9980:9980 -v /home/cool/coolwsd/coolwsd.xml:/etc/coolwsd/coolwsd.xml -e "extra_params=--o:ssl.enable=false --o:admin_console.username=pushsoft --o:admin_console.password=pushi123" --name pushdoc 10.0.35.16:5000/doc   . || exit 1
   # sudo docker stop pushdocssl && sudo docker rm pushdocssl || exit 1
   # sudo docker run -t -d -p 9981:9980 -v /home/cool/coolwsd/coolwsd.xml:/etc/coolwsd/coolwsd.xml -e "extra_params=--o:ssl.enable=true --o:admin_console.username=pushsoft --o:admin_console.password=pushi123" --name pushdocssl 10.0.35.16:5000/doc   . || exit 1

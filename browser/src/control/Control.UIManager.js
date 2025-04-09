@@ -370,11 +370,11 @@ L.Control.UIManager = L.Control.extend({
 		if (hasShare)
 			document.body.setAttribute('data-integratorSidebar', 'true');
 
-		if (window.mode.isMobile()) {
+		if (window.mode.isMobile() || app.isReadOnly()) {
 			$('#mobile-edit-button').show();
-			this.map.mobileBottomBar = JSDialog.MobileBottomBar(this.map);
+			if (window.mode.isMobile()) this.map.mobileBottomBar = JSDialog.MobileBottomBar(this.map);
 			this.map.mobileTopBar = JSDialog.MobileTopBar(this.map);
-			this.map.mobileSearchBar = JSDialog.MobileSearchBar(this.map);
+			if (window.mode.isMobile()) this.map.mobileSearchBar = JSDialog.MobileSearchBar(this.map);
 		} else if (enableNotebookbar) {
 			this.createNotebookbarControl(docType);
 			// makeSpaceForNotebookbar call in onUpdatePermission

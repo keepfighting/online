@@ -34,3 +34,24 @@ button:not(.ui-corner-all):not(.button-primary):not(.unobutton):not(.form-field-
 	color: var(--color-primary-dark);
 	cursor: pointer;
 }
+
+#toolbar-wrapper.readonly {
+	border-top: 0;
+	z-index: auto !important;
+	flex-direction: column;
+	display: flex;
+}
+
+#toolbar-wrapper.readonly > #formulabar-row {
+	display: none;
+}
+
+#toolbar-wrapper.readonly div.ui-toolbar div.ui-scrollable-content {
+	display: none;
+}
+
+.toolbar-row {
+	display: flex;
+	flex-direction: row;
+	height: 38px !important
+}
