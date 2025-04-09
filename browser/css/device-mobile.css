@@ -12,14 +12,14 @@ html[dir='rtl'] .sub-menu-arrow {
 	background-position: right;
 }
 
-/* Related to cool.css */
+/* Related to cool.css 
 #toolbar-hamburger {
 	width: 36px !important;
 	position: relative;
 	z-index: 1002;
-	align-self: center; /* Align items vertically */
+	align-self: center;
 }
-
+*/
 .logo {
 	background-size: 100px;
 	max-width: 24px;
