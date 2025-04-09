@@ -1260,7 +1260,25 @@ class CanvasSectionContainer {
 		}
 	}
 
-	private onTouchMove (e: TouchEvent) {
+	private _startTime: number;
+	private _timer: any;
+	private onTouchMove(e: TouchEvent) {
+		const debounce: number = app.touchDebounce || 50;
+		if (!this._startTime) {
+			this._startTime = +new Date();
+		}
+
+		var left = Math.max(debounce - (+new Date() - this._startTime), 0);
+
+		clearTimeout(this._timer);
+
+		this._timer = setTimeout(L.bind(this.onTouchMoveDelay, this, e), left);
+
+		return;
+	}
+
+	private onTouchMoveDelay(e: TouchEvent) {
+		this._startTime = null;
 		// Sometimes onTouchStart is fired for another element. In this case, we return.
 		if (this.positionOnMouseDown === null)
 			return;

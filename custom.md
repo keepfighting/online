@@ -4,6 +4,13 @@
 处理了手机的Swipe后的动画丢失情况
 表现为前端的不跟手卡断跳跃现象
 
+## 增加防抖
+    防抖：在事件触发的一系列操作中，只有最后一次操作会执行函数。
+    节流：在事件触发的一系列操作中，函数会按照一定的时间间隔周期性地执行。
+防抖（Debounce）和节流（Throttle）
+显示区域变化 500
+onTouchMove 50
+
 		
 		--exclude='debug.html' \
 		--exclude='framed.doc.html' \

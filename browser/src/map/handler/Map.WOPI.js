@@ -318,6 +318,17 @@ L.Map.WOPI = L.Handler.extend({
 			}
 		}
 
+		// 增加防抖值设定
+		if (msg.MessageId === 'SetTouchDebounce') {
+			app.touchDebounce = msg.Values;
+			return;
+		}
+		if (msg.MessageId === 'SetDebounce') {
+			app.touchDebounce = msg.Values.touch || app.touchDebounce;
+			app.socketDebounce = msg.Values.socket || app.socketDebounce;
+			return;
+		}
+		
 		// allow closing documents before they are completely loaded
 		if (msg.MessageId === 'Close_Session') {
 			app.socket.sendMessage('closedocument');

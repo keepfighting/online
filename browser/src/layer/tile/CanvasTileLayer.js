@@ -4309,9 +4309,30 @@ L.CanvasTileLayer = L.Layer.extend({
 		}
 		if (this._clientVisibleArea !== newClientVisibleArea || forceUpdate) {
 			// Visible area is dirty, update it on the server
-			app.socket.sendMessage(newClientVisibleArea);
-			if (!this._map._fatal && app.idleHandler._active && app.socket.connected())
-				this._clientVisibleArea = newClientVisibleArea;
+			// app.socket.sendMessage(newClientVisibleArea);
+			// if (!this._map._fatal && app.idleHandler._active && app.socket.connected())
+			// 	this._clientVisibleArea = newClientVisibleArea;
+			this._debounce(function () {
+				this._startTime2 = null;
+				app.socket.sendMessage(newClientVisibleArea);
+				if (!this._map._fatal && app.idleHandler._active && app.socket.connected())
+					this._clientVisibleArea = newClientVisibleArea;
+			});
+		}
+	},
+
+	_debounce(callback) {
+		const debounce =  app.socketDebounce || 500;
+		if (!this._startTime2) {
+			this._startTime2 = +new Date();
+		}
+
+		var left = Math.max(debounce - (+new Date() - this._startTime2), 0);
+		if (this._timer2) clearTimeout(this._timer2);
+
+		this._timer2 = setTimeout(L.bind(callback, this), left);
+
+		return;
 		}
 	},
 
