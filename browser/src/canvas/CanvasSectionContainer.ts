@@ -219,13 +219,7 @@ class CanvasSectionContainer {
 	private frameCount: number = null; // Frame count of the current animation.
 	private duration: number = null; // Duration for the animation.
 	private elapsedTime: number = null; // Time that passed since the animation started.
-	public getLineWidth(): number {
-		if (app.dpiScale > 1.0) {
-			return app.roundedDpiScale;
-		} else {
-			return app.dpiScale;
-		}
-	}
+
 	constructor (canvasDOMElement: HTMLCanvasElement, disableDrawing?: boolean) {
 		this.canvas = canvasDOMElement;
 		this.context = canvasDOMElement.getContext('2d', { alpha: false });
@@ -254,7 +248,7 @@ class CanvasSectionContainer {
 		tempElement.style.fontSize = 'initial'; // IE doesn't support this property, but it uses "deltaMode=0" (so we don't need to get the line height).
 		tempElement.style.display = 'none';
 		document.body.appendChild(tempElement);
-		this.scrollLineHeight = parseInt(window.getComputedStyle(tempElement).fontSize) * this.getLineWidth();
+		this.scrollLineHeight = parseInt(window.getComputedStyle(tempElement).fontSize);
 		document.body.removeChild(tempElement); // Remove the temporary element.
 
 		this.clearColor = window.getComputedStyle(document.documentElement).getPropertyValue('--color-canvas');

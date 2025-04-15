@@ -239,16 +239,7 @@ L.TileSectionManager = L.Class.extend({
 				const fps = Math.round(1000 / interval);
 				console.log(`Current rate: ~${fps}Hz`);
 			}
-			// 增加画布的溢出检查
-			const scrollSection = app.sectionContainer.getSectionWithName(L.CSections.Scroll.name);
-			const diffH = scrollSection.getHorizontalScrollProperties();
-			const diffV = scrollSection.getVerticalScrollProperties();
-			if (diffH.enableMove || diffV.enableMove) {
-				app.sectionContainer.onTouchMove(e);
-			}
-			else {
-				app.sectionContainer.onTouchEnd(e);
-			}
+			app.sectionContainer.onTouchMove(e); 
 		}, true);
 		sourceElement.addEventListener('touchend', function (e) { app.sectionContainer.onTouchEnd(e); }, true);
 		sourceElement.addEventListener('touchcancel', function (e) { app.sectionContainer.onTouchCancel(e); }, true);
@@ -3452,17 +3443,10 @@ L.CanvasTileLayer = L.Layer.extend({
 		// But of course, zoom to fit the first time.
 		if (this._firstFitDone)
 			zoom = this._map._zoom;
-		else {
-			this._firstFitDone = true;
+		this._firstFitDone = true;
 
-			if (zoom > 1)
-				zoom = Math.floor(zoom);
-			this._map._initZoom = zoom;
-		}
-		// this._firstFitDone = true;
-
-		// if (zoom > 1)
-		// 	zoom = Math.floor(zoom);
+		if (zoom > 1)
+			zoom = Math.floor(zoom);
 
 		this._map.setZoom(zoom, {animate: false});
 	},
@@ -4352,7 +4336,7 @@ L.CanvasTileLayer = L.Layer.extend({
 		}
 	},
 
-	_debounce: function(callback) {
+	_debounce(callback) {
 		const debounce =  app.socketDebounce || 500;
 		if (!this._startTime2) {
 			this._startTime2 = +new Date();
@@ -4364,6 +4348,7 @@ L.CanvasTileLayer = L.Layer.extend({
 		this._timer2 = setTimeout(L.bind(callback, this), left);
 
 		return;
+		}
 	},
 
 	// Update debug overlay for a tile

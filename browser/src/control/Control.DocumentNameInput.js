@@ -103,15 +103,15 @@ L.Control.DocumentNameInput = L.Control.extend({
 		var el = $('#document-name-input');
 
 		try {
-			// var fileNameFullPath = new URL(
-			// 	new URLSearchParams(window.location.search).get('WOPISrc')
-			// )
-			// 	.pathname
-			// 	.replace('/wopi/files', '');
+			var fileNameFullPath = new URL(
+				new URLSearchParams(window.location.search).get('WOPISrc')
+			)
+				.pathname
+				.replace('/wopi/files', '');
 
-			// var basePath = fileNameFullPath.replace(this.map['wopi'].BaseFileName , '').replace(/\/$/, '');
-			// var title = this.map['wopi'].BaseFileName + '\n' + _('Path') + ': ' + basePath;
-			var title = this.map['wopi'].BaseFileName;
+			var basePath = fileNameFullPath.replace(this.map['wopi'].BaseFileName , '').replace(/\/$/, '');
+			var title = this.map['wopi'].BaseFileName + '\n' + _('Path') + ': ' + basePath;
+
 			el.prop('title', title);
 		} catch (e) {
 			// purposely ignore the error for legacy browsers

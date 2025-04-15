@@ -153,14 +153,6 @@ L.Draggable = L.Evented.extend({
 		if (window.touch.isTouchEvent(e) && Math.abs(offset.x) + Math.abs(offset.y) < 3 && !e.autoscroll) { return; }
 
 		L.DomEvent.preventDefault(e);
-		if (app.map.dragging._draggable === this) {
-			// 增加画布的溢出检查
-			const scrollSection = app.sectionContainer.getSectionWithName(L.CSections.Scroll.name);
-			const diffH = scrollSection.getHorizontalScrollProperties();
-			const diffV = scrollSection.getVerticalScrollProperties();
-			if (!diffH.enableMove && offset.x < 0) return;
-			if (!diffV.enableMove && offset.y < 0) return;
-		}
 
 		if (!this._moved) {
 			this.fire('dragstart', {originalEvent: e});

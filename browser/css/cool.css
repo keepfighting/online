@@ -13,7 +13,7 @@
 	/* Shared color for cell and selection border */
 	--cell-cursor-selection-border-color: var(--color-primary);
 
-	--btn-size: 36px;
+	--btn-size: 28px;
 	--btn-padding: 2px;
 	--btn-img-size: calc(var(--btn-size) - var(--btn-padding) * 2);
 	--btn-color-colorpicker-size: 4px;
@@ -394,12 +394,12 @@ body {
 
 /* Hide hamburger except on mobile phones */
 #toolbar-hamburger {
-	width: 0px !important;
+	width: 0;
 }
 
 /* Hide back btn except on mobile phones */
 #toolbar-mobile-back {
-	width: 0px !important;
+	width: 0;
 }
 
 #mobile-edit-button {

@@ -127,18 +127,3 @@
 #lokit-version > span:after {
 	content: ')';
 }
-
-#toolbar-wrapper.readonly {
-	border-top: 0;
-	z-index: auto !important;
-	flex-direction: column;
-	display: flex;
-}
-
-#toolbar-wrapper.readonly > #formulabar-row {
-	display: none;
-}
-
-#toolbar-wrapper.readonly > #toolbar-row {
-	display: flex;
-}
