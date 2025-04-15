@@ -4336,7 +4336,7 @@ L.CanvasTileLayer = L.Layer.extend({
 		}
 	},
 
-	_debounce(callback) {
+	_debounce: function(callback) {
 		const debounce =  app.socketDebounce || 500;
 		if (!this._startTime2) {
 			this._startTime2 = +new Date();
@@ -4348,7 +4348,7 @@ L.CanvasTileLayer = L.Layer.extend({
 		this._timer2 = setTimeout(L.bind(callback, this), left);
 
 		return;
-		}
+		
 	},
 
 	// Update debug overlay for a tile
