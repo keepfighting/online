@@ -1035,7 +1035,7 @@ L.Control.UIManager = L.Control.extend({
 
 		this.documentBottom = $('#document-container').css('bottom');
 		$('#document-container').css('bottom', '0px');
-		this.map.statusBar.hide();
+		if(this.map.statusBar) this.map.statusBar.hide();
 		if (!firstStart)
 			this.setDocTypePref('ShowStatusbar', false);
 		this.map.fire('statusbarchanged');
