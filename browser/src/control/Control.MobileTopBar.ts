@@ -98,7 +98,7 @@ class MobileTopBar extends JSDialog.Toolbar {
 			// zoom = Math.min(10, Math.max(.1, zoom));
 			// if (zoom > 1)
             //     zoom = Math.floor(zoom);
-			var zoom = this.map._initZoom;
+			var zoom = this.map._initZoom || 10;
 			this.map.setZoom(zoom, null, true /* animate? */);
 			return;
 		}
